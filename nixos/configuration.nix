@@ -103,9 +103,17 @@ hardware.nvidia = {
 
 services= {
 
+blueman.enable = true;
+
 xserver = {
 	enable = true;
+	
+	desktopManager = {
+        xterm.enable = false;
+        xfce.enable = true;
+	};
 	libinput.enable = true;
+	libinput.mouse.accelSpeed = "0.0";
 	xkb = {
 		layout = "us, ru";
 		variant = "";
@@ -114,7 +122,7 @@ xserver = {
 };
 
 displayManager.sddm.enable = true;
-desktopManager.plasma6.enable = true;
+#desktopManager.plasma6.enable = true;
 
 tailscale = {
 	enable = true;
