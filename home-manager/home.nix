@@ -41,9 +41,7 @@ home = {
 # Add stuff for your user as you see fit:
 # programs.neovim.enable = true;
 home.packages = with pkgs; [
-
-	steam 
-
+steam-run
 ];
 
 # Enable home-manager and git
@@ -53,6 +51,13 @@ programs.git = {
 	userName  = "Gleb";
 	userEmail = "anonymous@example.com";
 	privateKeyFiles = [ "~/.ssh/id_ed25519" ];
+programs.neovim = {
+  viAlias = true;
+  vimAlias = true;
+  
+};
+
+
 
 
 };
