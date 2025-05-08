@@ -31,6 +31,7 @@ nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 
 in {
 	settings = {
+
 	# Enable flakes and new 'nix' command
 	experimental-features = "nix-command flakes";
 	# Opinionated: disable global registry
@@ -97,8 +98,6 @@ hardware.nvidia = {
 	# Optionally, you may need to select the appropriate driver version for your specific GPU.
 	package = config.boot.kernelPackages.nvidiaPackages.stable;
 };
-
-
 
 
 services= {
@@ -188,7 +187,6 @@ environment.systemPackages = with pkgs; [
 	unrar
 	p7zip
 	unp
-	wineWowPackages.waylandFull
 	qbittorrent
 	qdirstat
 	gimp
