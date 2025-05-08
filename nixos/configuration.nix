@@ -107,10 +107,6 @@ blueman.enable = true;
 xserver = {
 	enable = true;
 	
-	desktopManager = {
-        xterm.enable = false;
-        xfce.enable = true;
-	};
 	libinput.enable = true;
 	libinput.mouse.accelSpeed = "0.0";
 	xkb = {
@@ -203,7 +199,7 @@ environment.systemPackages = with pkgs; [
 	slurp
 	swappy
 	wl-clipboard
-	kitty
+	ghostty	
 ]; 
 
 hardware = {
