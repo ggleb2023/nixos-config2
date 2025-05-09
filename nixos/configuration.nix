@@ -28,7 +28,9 @@ overlays = [
 config.allowUnfree = true;
 };
 
-nix = let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+nix =
+
+let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 
 in {
 	settings = {
@@ -46,6 +48,7 @@ in {
 	# Opinionated: make flake registry and nix path match flake inputs
 	registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
 	nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+	
 };
 
 #Permit EOLed electron package :( 
@@ -199,7 +202,7 @@ environment.systemPackages = with pkgs; [
 	slurp
 	swappy
 	wl-clipboard
-	ghostty	
+	kitty
 ]; 
 
 hardware = {
