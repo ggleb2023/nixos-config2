@@ -3,12 +3,13 @@ description = "Your new nix config";
 
 inputs = {
 
-# Nixpkgs
-nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+# Nixpkgs 
+nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 
 # Home manager
-	home-manager.url = "github:nix-community/home-manager/release-24.11";
-	home-manager.inputs.nixpkgs.follows = "nixpkgs";
+home-manager.url = "github:nix-community/home-manager";
+home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
 # Disko
 disko.url = "github:nix-community/disko/latest";
@@ -17,17 +18,26 @@ disko.inputs.nixpkgs.follows = "nixpkgs";
 # Hyprland
 hyprland.url = "github:hyprwm/Hyprland";
 
+# Cachix
 cachix.url = "github:cachix/cachix";
 cachix.inputs.nixpkgs.follows = "nixpkgs";
+
+# sops-nix
+sops-nix.url = "github:Mic92/sops-nix";
+sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+# Agenix
+agenix.url = "github:ryantm/agenix";
+agenix.inputs.nixpkgs.follows = "nixpkgs";
+
 };
 
 
 outputs = {
-self, nixpkgs, home-manager, disko, hyprland, cachix, ...
+self, nixpkgs, home-manager, disko, hyprland, cachix, sops-nix, agenix, ...
 } 
 
-@ inputs: 
-let inherit (self) outputs;
+@ inputs: let inherit (self) outputs;
 
 in {
 # NixOS configuration entrypoint
@@ -44,6 +54,8 @@ nixosConfigurations = {
 	modules = [
 		./nixos/configuration.nix
 		disko.nixosModules.default
+		sops-nix.nixosModules.sops
+		agenix.nixosModules.default
 	];
 	};
 };
