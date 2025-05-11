@@ -204,8 +204,6 @@ kdeconnect.enable = true;
 
 firefox.enable = false;
 
-git.enable = true;
-
 };
 
 environment.systemPackages = with pkgs; [

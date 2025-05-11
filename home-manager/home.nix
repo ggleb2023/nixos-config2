@@ -56,10 +56,17 @@ neovim = {
 
 git = {
 	enable = true;
-	userName = "Gleb";
-	userEmail = "anonymous@example.com";
+	userName = "ggleb2023";
+	userEmail = "151332451+ggleb2023@users.noreply.github.com"; 
+	signing = {
+		key = "~/.ssh/id_ed25519.pub";
+		signByDefault = true;
+	};
 	extraConfig = {
-	core.sshCommand = "ssh -i ~/.ssh/id_ed25519";
+		gpg.format = "ssh";
+		commit.gpgsign = true;
+		tag.gpgsign = true;
+		user.signingkey = "~/.ssh/id_ed25519.pub";
 	};
 };
 
