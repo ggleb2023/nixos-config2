@@ -56,7 +56,18 @@ nixosConfigurations = {
 		disko.nixosModules.default
 		sops-nix.nixosModules.sops
 		agenix.nixosModules.default
-	];
+
+		home-manager.nixosModules.home-manager
+		{
+			home-manager = {
+				useGlobalPkgs = true;
+				useUserPackages = true;
+				users.gleb = import ./home-manager/home.nix;
+				extraSpecialArgs = { inherit inputs; };
+			};
+		}
+
+];
 	};
 };
 
