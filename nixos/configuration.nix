@@ -8,7 +8,6 @@ imports =
 [ # Include the results of the hardware scan.
 ./hardware-configuration.nix
 ./disko.nix
-./modules/hyprland.nix
 inputs.sops-nix.nixosModules.sops
 ];
 
@@ -31,9 +30,12 @@ config.allowUnfree = true;
 
 nix =
 
-let flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+let 
+
+flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 
 in {
+
 
 settings = {
 
@@ -53,11 +55,20 @@ settings = {
 	
 };
 
-# sops
-sops.defaultSopsFile = ./../secrets/owo.yaml;
-sops.defaultSopsFormat = "yaml";
-sops.age.keyFile = "/home/gleb/.config/sops/age/keys.txt";
-sops.secrets.singbox1 = { };
+services.xserver.enable = true;
+services.xserver.displayManager.gdm.enable = true;
+services.xserver.desktopManager.gnome.enable = true;
+
+  environment.gnome.excludePackages = with pkgs; [
+    epiphany
+    orca
+    simple-scan
+    yelp
+    gnome-software
+  ];
+
+security.polkit.enable = true;
+
 #Permit EOLed electron package :( 
 #nixpkgs.config.permittedInsecurePackages = [
 #"electron-27.3.11"
@@ -116,34 +127,32 @@ hardware.nvidia = {
 
 services= {
 
-thermald.enable = true;
+#thermald.enable = true;
 
-tlp = {
-	enable = true;
-	settings = {
-	CPU_SCALING_GOVERNOR_ON_AC = "performance";
-	CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-	CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-	CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-	CPU_MIN_PERF_ON_AC = 0;
-	CPU_MAX_PERF_ON_AC = 100;
-	CPU_MIN_PERF_ON_BAT = 0;
-	CPU_MAX_PERF_ON_BAT = 20;
-
-	#Optional helps save long term battery health
-	START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
-	STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-
-	};
-};
+#tlp = {
+#	enable = true;
+#	settings = {
+#	CPU_SCALING_GOVERNOR_ON_AC = "performance";
+#	CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+#
+#	CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+#	CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+#
+#	CPU_MIN_PERF_ON_AC = 0;
+#	CPU_MAX_PERF_ON_AC = 100;
+#	CPU_MIN_PERF_ON_BAT = 0;
+#	CPU_MAX_PERF_ON_BAT = 20;
+#
+#	#Optional helps save long term battery health
+#	START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+#	STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+#
+#	};
+#};
 
 blueman.enable = true;
 
 xserver = {
-	enable = true;
-	
 	libinput.enable = true;
 	libinput.mouse.accelSpeed = "0.0";
 	xkb = {
@@ -204,13 +213,17 @@ kdeconnect.enable = true;
 
 firefox.enable = false;
 
+
 };
 
 environment.systemPackages = with pkgs; [
+	vscode-fhs
+	zed-editor
+	nekoray
+	blender
 	telegram-desktop
 	fastfetch
 	btop
-	nekoray
 	usbutils
 	legcord
 	hyfetch
@@ -229,15 +242,6 @@ environment.systemPackages = with pkgs; [
 	onlyoffice-desktopeditors
 	obsidian
 	mars-mips
-	grim
-	slurp
-	swappy
-	wl-clipboard
-	kitty
-	xorg.libxcb
-	xorg.xcbutil
-	xorg.xcbutilcursor
-	qt6.qtwayland
 	age
 	inputs.agenix.packages."${system}".default
 ]; 
