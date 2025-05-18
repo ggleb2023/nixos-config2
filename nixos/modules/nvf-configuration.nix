@@ -7,8 +7,8 @@ vim = {
 		name = "gruvbox";
 		style = "light";
 		};
-	languages = {
-		enableLSP = true;
+        lsp.enable = true;
+        languages = {
 		enableTreesitter = true;
 
 		nix.enable = true;
