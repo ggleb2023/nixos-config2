@@ -60,11 +60,7 @@ services.xserver.displayManager.gdm.enable = true;
 services.xserver.desktopManager.gnome.enable = true;
 
   environment.gnome.excludePackages = with pkgs; [
-    epiphany
-    orca
-    simple-scan
-    yelp
-    gnome-software
+gnome-console
   ];
 
 security.polkit.enable = true;
@@ -191,11 +187,6 @@ printing.enable = true;
 
 programs = {
 
-neovim = {
-	enable = true;
-	defaultEditor = true;
-};
-
 steam = {
 	enable = true;
 	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -217,7 +208,9 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
-	rustup
+        alacritty
+        font-awesome
+        rustup
 
 	vscode-fhs
 	zed-editor

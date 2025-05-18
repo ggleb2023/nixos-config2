@@ -52,11 +52,6 @@ programs = {
 
 home-manager.enable = true;
 
-neovim = {
-  viAlias = true;
-  vimAlias = true;
-};
-
 git = {
 	enable = true;
 	userName = "ggleb2023";
