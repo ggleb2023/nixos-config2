@@ -217,6 +217,8 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+	rustup
+
 	vscode-fhs
 	zed-editor
 	nekoray

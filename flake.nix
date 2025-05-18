@@ -3,6 +3,7 @@ description = "Your new nix config";
 
 inputs = {
 
+
 # Nixpkgs 
 nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -11,12 +12,17 @@ nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 home-manager.url = "github:nix-community/home-manager";
 home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+#NVF
+nvf.url = "github:notashelf/nvf";
+nvf.inputs.nixpkgs.follows = "nixpkgs";
+
 # Disko
 disko.url = "github:nix-community/disko/latest";
 disko.inputs.nixpkgs.follows = "nixpkgs";
 
 # Hyprland
 hyprland.url = "github:hyprwm/Hyprland";
+hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
 # Cachix
 cachix.url = "github:cachix/cachix";
@@ -34,7 +40,8 @@ agenix.inputs.nixpkgs.follows = "nixpkgs";
 
 
 outputs = {
-self, nixpkgs, home-manager, disko, hyprland, cachix, sops-nix, agenix, ...
+self, nixpkgs,
+home-manager, disko, hyprland, cachix, sops-nix, agenix, nvf, ...
 } 
 
 @ inputs: let inherit (self) outputs;
@@ -56,6 +63,7 @@ nixosConfigurations = {
 		disko.nixosModules.default
 		sops-nix.nixosModules.sops
 		agenix.nixosModules.default
+		nvf.nixosModules.default
 
 		home-manager.nixosModules.home-manager
 		{
@@ -63,7 +71,7 @@ nixosConfigurations = {
 				useGlobalPkgs = true;
 				useUserPackages = true;
 				users.gleb = import ./home-manager/home.nix;
-				extraSpecialArgs = { inherit inputs; };
+				extraSpecialArgs = { inherit inputs; };	
 			};
 		}
 
