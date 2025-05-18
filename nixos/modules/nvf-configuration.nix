@@ -1,4 +1,4 @@
-{ pkgs, lib, ... };
+{ pkgs, lib, ... }:
 
 {
 vim = {
@@ -14,7 +14,7 @@ vim = {
 		nix.enable = true;
 		rust.enable = true;
 		clang.enable = true;
-		typst.enable = true
+		typst.enable = true;
 		};
 
 	statusline.lualine.enable = true;

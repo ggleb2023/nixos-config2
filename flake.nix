@@ -43,7 +43,6 @@ home-manager, disko, hyprland, cachix, sops-nix, agenix, nvf, ...
 } 
 
 @ inputs: let inherit (self) outputs;
-
 in {
 # NixOS configuration entrypoint
 # Available through 'nixos-rebuild --flake .#your-hostname'
@@ -78,10 +77,10 @@ nixosConfigurations = {
 };
 
 #NVF standalone
-packages.system.default = 
+packages."x86_64-linux".default = 
 	(nvf.lib.neovimConfiguration {
-	pkgs = nixpkgs.legacyPackages.system;
-	modules = [/nixos/modules/nvf-configuration.nix];
+	pkgs = nixpkgs.legacyPackages."x86_64-linux";
+	modules = [./nixos/modules/nvf-configuration.nix];
 	}).neovim;
 
 # Standalone home-manager configuration entrypoint
