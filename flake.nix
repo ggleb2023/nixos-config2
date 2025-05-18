@@ -1,8 +1,7 @@
 { 
-description = "Your new nix config";
+description = "wawa";
 
 inputs = {
-
 
 # Nixpkgs 
 nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -37,7 +36,6 @@ agenix.url = "github:ryantm/agenix";
 agenix.inputs.nixpkgs.follows = "nixpkgs";
 
 };
-
 
 outputs = {
 self, nixpkgs,
@@ -78,6 +76,13 @@ nixosConfigurations = {
 ];
 	};
 };
+
+#NVF standalone
+packages.system.default = 
+	(nvf.lib.neovimConfiguration {
+	pkgs = nixpkgs.legacyPackages.system;
+	modules = [/nixos/modules/nvf-configuration.nix];
+	}).neovim;
 
 # Standalone home-manager configuration entrypoint
 # Available through 'home-manager --flake .#your-username@your-hostname'
