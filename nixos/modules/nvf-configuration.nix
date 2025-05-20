@@ -1,10 +1,14 @@
 { pkgs, lib, ... }:
 
 {
+programs.nvf = {
+
+enable = true;
+settings = {
 vim = {
 	theme = {
 		enable = true;
-		name = "gruvbox";
+		name = "onedark";
 		style = "light";
 		};
         lsp.enable = true;
@@ -13,6 +17,8 @@ vim = {
 
 		nix.enable = true;
 		rust.enable = true;
+                rust.crates.enable = true;
+                rust.treesitter.enable = true;
 		clang.enable = true;
 		typst.enable = true;
 		};
@@ -23,4 +29,6 @@ vim = {
 
 	};
 
+};
+};
 }

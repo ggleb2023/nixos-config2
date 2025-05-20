@@ -9,6 +9,7 @@ imports =
 ./hardware-configuration.nix
 ./disko.nix
 inputs.sops-nix.nixosModules.sops
+./modules/nvf-configuration.nix
 ];
 
 nixpkgs = {
@@ -154,7 +155,7 @@ xserver = {
 	xkb = {
 		layout = "us, ru";
 		variant = "";
-		options = "grp:alt_shift_toggle";
+		options = "";
 	};
 };
 
@@ -208,7 +209,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
-        alacritty
+        ghostty
         font-awesome
         rustup
 

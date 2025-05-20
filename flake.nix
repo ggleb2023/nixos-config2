@@ -76,13 +76,13 @@ nixosConfigurations = {
 	};
 };
 
-#NVF standalone
-packages."x86_64-linux".default = 
-	(nvf.lib.neovimConfiguration {
-	pkgs = nixpkgs.legacyPackages."x86_64-linux";
-	modules = [./nixos/modules/nvf-configuration.nix];
-	}).neovim;
-
+##NVF standalone
+#packages."x86_64-linux".default = 
+#	(nvf.lib.neovimConfiguration {
+#	pkgs = nixpkgs.legacyPackages."x86_64-linux";
+#	modules = [./nixos/modules/nvf-configuration.nix];
+#	}).neovim;
+#
 # Standalone home-manager configuration entrypoint
 # Available through 'home-manager --flake .#your-username@your-hostname'
 homeConfigurations = {
