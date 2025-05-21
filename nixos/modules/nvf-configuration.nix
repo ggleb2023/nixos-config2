@@ -9,7 +9,6 @@ vim = {
 	theme = {
 		enable = true;
 		name = "onedark";
-		style = "light";
 		};
         lsp.enable = true;
         languages = {
