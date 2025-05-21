@@ -8,7 +8,8 @@ settings = {
 vim = {
 	theme = {
 		enable = true;
-		name = "onedark";
+		name = "github";
+style = "dark";
 		};
         lsp.enable = true;
         languages = {
@@ -25,9 +26,7 @@ vim = {
         statusline.lualine.enable = true;
         telescope.enable = true;
         autocomplete.nvim-cmp.enable = true;
-
-	};
-
+};
 };
 };
 }
