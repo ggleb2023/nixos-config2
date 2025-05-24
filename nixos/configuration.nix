@@ -188,6 +188,8 @@ printing.enable = true;
 
 programs = {
 
+nix-ld.enable = true;
+
 steam = {
 	enable = true;
 	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -209,6 +211,8 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        deadbeef
+        musescore
         ghostty
         font-awesome
         rustup
