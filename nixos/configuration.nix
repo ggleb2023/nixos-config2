@@ -189,6 +189,7 @@ printing.enable = true;
 programs = {
 
 nix-ld.enable = true;
+nix-ld.libraries = with pkgs; [fuse];
 
 steam = {
 	enable = true;
