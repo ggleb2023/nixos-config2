@@ -124,6 +124,8 @@ hardware.nvidia = {
 
 services= {
 
+udev.packages = [ pkgs.gnome-settings-daemon ];
+
 #thermald.enable = true;
 
 #tlp = {
@@ -188,11 +190,11 @@ printing.enable = true;
 
 programs = {
 
-nix-ld.enable = true;
-nix-ld.libraries = with pkgs; [
-                fuse
-                freetype
-                ];
+appimage.enable = true;
+appimage.binfmt = true;
+                #programs.appimage.package = pkgs.appimage-run.override { extraPkgs = pkgs: [
+                #pkgs.python312
+                #]; };
 
 steam = {
 	enable = true;
@@ -215,6 +217,8 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        gnomeExtensions.appindicator
+        gnome-panel
         deadbeef
         musescore
         ghostty
