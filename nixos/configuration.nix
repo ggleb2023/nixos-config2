@@ -217,16 +217,12 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
-        dorion
+        qemu
         pureref
-        gnomeExtensions.appindicator
-        gnome-panel
         deadbeef
-        musescore
         ghostty
         font-awesome
         rustup
-
 	vscode-fhs
 	zed-editor
 	nekoray
