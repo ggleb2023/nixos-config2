@@ -323,10 +323,12 @@ extraGroups = [ "networkmanager" "wheel" "vboxusers"];
 
 virtualisation.virtualbox.host.enable = true;
 users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
-virtualisation.virtualbox.host.enableExtensionPack = true;
-virtualisation.virtualbox.guest.enable = true;
-virtualisation.virtualbox.guest.dragAndDrop = true;
-
+virtualisation.virtualbox = {
+        host.enableExtensionPack = true;
+        host.enableKvm = true;
+        guest.enable = true;
+        guest.dragAndDrop = true;
+        };
 
 # Open ports in the firewall.
 # networking.firewall.allowedTCPPorts = [ ... ];
