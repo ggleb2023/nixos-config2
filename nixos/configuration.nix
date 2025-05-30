@@ -217,6 +217,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        dorion
         pureref
         gnomeExtensions.appindicator
         gnome-panel
