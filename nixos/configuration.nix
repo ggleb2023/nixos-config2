@@ -326,6 +326,7 @@ users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
 virtualisation.virtualbox = {
         host.enableExtensionPack = true;
         host.enableKvm = true;
+        host.addNetworkInterface = false;
         guest.enable = true;
         guest.dragAndDrop = true;
         };
