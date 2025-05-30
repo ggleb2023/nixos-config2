@@ -11,6 +11,9 @@ nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 home-manager.url = "github:nix-community/home-manager";
 home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+quickemu.url = "https://flakehub.com/f/quickemu-project/quickemu/4.9.7";
+quickemu.inputs.nixpkgs.follows = "nixpkgs";
+
 #NVF
 nvf.url = "github:notashelf/nvf";
 nvf.inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +42,7 @@ agenix.inputs.nixpkgs.follows = "nixpkgs";
 
 outputs = {
 self, nixpkgs,
-home-manager, disko, hyprland, cachix, sops-nix, agenix, nvf, ...
+home-manager, disko, hyprland, cachix, sops-nix, agenix, nvf, quickemu, ...
 } 
 
 @ inputs: let inherit (self) outputs;
