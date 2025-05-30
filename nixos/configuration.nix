@@ -217,6 +217,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        quickemu
         qemu
         pureref
         deadbeef
