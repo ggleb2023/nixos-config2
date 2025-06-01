@@ -10,6 +10,7 @@ imports =
 ./disko.nix
 inputs.sops-nix.nixosModules.sops
 ./modules/nvf-configuration.nix
+./modules/vm.nix
 ];
 
 nixpkgs = {
@@ -17,7 +18,6 @@ nixpkgs = {
 overlays = [
 # If you want to use overlays exported from other flakes:
 # neovim-nightly-overlay.overlays.default
-
 # Or define it inline, for example:
 # (final: prev: {
 #   hi = final.hello.overrideAttrs (oldAttrs: {
@@ -321,14 +321,6 @@ isNormalUser = true;
 description = "gleb";
 extraGroups = [ "networkmanager" "wheel" ];
 };
-
-programs.virt-manager.enable = true;
-
-users.groups.libvirtd.members = ["gleb"];
-
-virtualisation.libvirtd.enable = true;
-
-virtualisation.spiceUSBRedirection.enable = true;
 
 # Open ports in the firewall.
 # networking.firewall.allowedTCPPorts = [ ... ];
