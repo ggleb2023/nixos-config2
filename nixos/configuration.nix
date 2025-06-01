@@ -319,18 +319,16 @@ pulse.enable = true;
 users.users.gleb = {
 isNormalUser = true;
 description = "gleb";
-extraGroups = [ "networkmanager" "wheel" "vboxusers"];
+extraGroups = [ "networkmanager" "wheel" ];
 };
 
-virtualisation.virtualbox.host.enable = true;
-users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
-virtualisation.virtualbox = {
-        host.enableExtensionPack = true;
-        host.enableKvm = true;
-        host.addNetworkInterface = false;
-        guest.enable = true;
-        guest.dragAndDrop = true;
-        };
+programs.virt-manager.enable = true;
+
+users.groups.libvirtd.members = ["gleb"];
+
+virtualisation.libvirtd.enable = true;
+
+virtualisation.spiceUSBRedirection.enable = true;
 
 # Open ports in the firewall.
 # networking.firewall.allowedTCPPorts = [ ... ];
