@@ -217,7 +217,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
-        fluffychat
+        element-desktop
         quickemu
         qemu
         pureref
