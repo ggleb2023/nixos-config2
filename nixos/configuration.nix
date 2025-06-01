@@ -219,7 +219,6 @@ firefox.enable = false;
 environment.systemPackages = with pkgs; [
         element-desktop
         quickemu
-        qemu
         pureref
         deadbeef
         ghostty
