@@ -217,8 +217,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
-        element-desktop
-        quickemu
+        zettlr
         pureref
         deadbeef
         ghostty
