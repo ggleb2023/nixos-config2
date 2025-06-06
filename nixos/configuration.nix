@@ -56,7 +56,7 @@ settings = {
 	
 };
 
-services.xserver.enable = true;
+services.libinput.enable = true;
 services.xserver.displayManager.gdm.enable = true;
 services.xserver.desktopManager.gnome.enable = true;
 
@@ -77,9 +77,6 @@ security.polkit.enable = true;
 hardware = {
 	graphics.enable = true;
 	nvidia.modesetting.enable = true;
-	opengl = {
-		enable = true;
-	};
 };
 
 services.xserver.videoDrivers = [ "nvidia" ];
@@ -151,9 +148,11 @@ udev.packages = [ pkgs.gnome-settings-daemon ];
 
 blueman.enable = true;
 
+libinput.mouse.accelSpeed = "0.0";
+
+services.libinput.enable = true;
+
 xserver = {
-	libinput.enable = true;
-	libinput.mouse.accelSpeed = "0.0";
 	xkb = {
 		layout = "us, ru";
 		variant = "";
@@ -213,6 +212,7 @@ kdeconnect.enable = true;
 
 firefox.enable = false;
 
+pulseaudio.enable = false;
 
 };
 
@@ -298,7 +298,7 @@ LC_TIME = "en_US.UTF-8";
 };
 
 # SOUND
-hardware.pulseaudio.enable = false;
+hardware.
 security.rtkit.enable = true;
 services.pipewire = {
 enable = true;
