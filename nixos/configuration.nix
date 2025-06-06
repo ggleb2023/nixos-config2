@@ -298,7 +298,6 @@ LC_TIME = "en_US.UTF-8";
 };
 
 # SOUND
-hardware.
 security.rtkit.enable = true;
 services.pipewire = {
 enable = true;
