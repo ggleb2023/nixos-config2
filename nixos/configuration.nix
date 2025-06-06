@@ -56,7 +56,6 @@ settings = {
 	
 };
 
-services.libinput.enable = true;
 services.xserver.displayManager.gdm.enable = true;
 services.xserver.desktopManager.gnome.enable = true;
 
@@ -146,11 +145,13 @@ udev.packages = [ pkgs.gnome-settings-daemon ];
 #	};
 #};
 
+pulseaudio.enable = false;
+
 blueman.enable = true;
 
 libinput.mouse.accelSpeed = "0.0";
 
-services.libinput.enable = true;
+libinput.enable = true;
 
 xserver = {
 	xkb = {
@@ -211,8 +212,6 @@ steam = {
 kdeconnect.enable = true;
 
 firefox.enable = false;
-
-pulseaudio.enable = false;
 
 };
 
