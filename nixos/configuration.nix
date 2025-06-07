@@ -216,6 +216,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        v2rayN
         zettlr
         pureref
         deadbeef
