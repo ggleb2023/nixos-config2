@@ -82,6 +82,7 @@ hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   services.xserver.videoDrivers = ["modesetting" "nvidia" ];
   hardware.nvidia.open = false;
   hardware.nvidia.prime = {
+        offload.enableOffloadCmd = true;
         offload.enable = true;
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
@@ -222,7 +223,12 @@ environment.systemPackages = with pkgs; [
 	mars-mips
 	age
 	inputs.agenix.packages."${system}".default
-]; 
+  (retroarch.withCores (cores: with cores; [
+    snes9x
+  ppsspp
+                ]))
+
+        ]; 
 
 hardware = {
 
