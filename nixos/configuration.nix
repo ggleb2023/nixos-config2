@@ -188,6 +188,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        prismlauncher
         fontforge-gtk
         v2rayn
         zettlr
