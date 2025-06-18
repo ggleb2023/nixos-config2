@@ -69,6 +69,16 @@ programs.nix-ld.libraries = with pkgs; [
 
 ];
 
+boot.loader = {
+efi.canTouchEfiVariables = true;
+grub = {
+        enable = true;
+        devices = ["nodev"];
+        efiSupport = true;
+        useOSProber = true;
+        };
+        };
+
 services.xserver.displayManager.gdm.enable = true;
 services.xserver.desktopManager.gnome.enable = true;
 
@@ -252,10 +262,6 @@ powerOnBoot = true;
 opentabletdriver.enable = true;
 
 };
-
-# Bootloader.
-boot.loader.systemd-boot.enable = true;
-boot.loader.efi.canTouchEfiVariables = true;
 
 networking.hostName = "nixos"; # Define your hostname.
 # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
