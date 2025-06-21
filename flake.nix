@@ -3,6 +3,10 @@ description = "wawa";
 
 inputs = {
 
+#musnix
+musnix.url = "github:musnix/musnix";
+musnix.inputs.nixpkgs.follows = "nixpkgs";
+
 # Nixpkgs 
 nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -61,6 +65,7 @@ nixosConfigurations = {
 		sops-nix.nixosModules.sops
 		agenix.nixosModules.default
 		nvf.nixosModules.default
+                inputs.musnix.nixosModules.musnix
 
 		home-manager.nixosModules.home-manager
 		{
