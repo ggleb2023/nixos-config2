@@ -207,6 +207,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        gzdoom
         prismlauncher
         fontforge-gtk
         v2rayn
