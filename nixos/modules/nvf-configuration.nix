@@ -16,12 +16,11 @@ style = "dark";
         enableTreesitter = true;
 
 		nix.enable = true;
-		rust.enable = true;
-                rust.crates.enable = true;
-                rust.treesitter.enable = true;
 		clang.enable = true;
 		typst.enable = true;
-		};
+                ts.enable = true;
+                html.enable = true;
+                };
         
         statusline.lualine.enable = true;
         telescope.enable = true;
