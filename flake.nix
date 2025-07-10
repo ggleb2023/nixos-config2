@@ -15,10 +15,6 @@ nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 home-manager.url = "github:nix-community/home-manager";
 home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-#NVF
-nvf.url = "github:notashelf/nvf";
-nvf.inputs.nixpkgs.follows = "nixpkgs";
-
 # Disko
 disko.url = "github:nix-community/disko/latest";
 disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +39,7 @@ agenix.inputs.nixpkgs.follows = "nixpkgs";
 
 outputs = {
 self, nixpkgs,
-home-manager, disko, hyprland, cachix, sops-nix, agenix, nvf, ...
+home-manager, disko, hyprland, cachix, sops-nix, agenix, ...
 } 
 
 @ inputs: let inherit (self) outputs;
@@ -64,7 +60,6 @@ nixosConfigurations = {
 		disko.nixosModules.default
 		sops-nix.nixosModules.sops
 		agenix.nixosModules.default
-		nvf.nixosModules.default
                 inputs.musnix.nixosModules.musnix
 
 		home-manager.nixosModules.home-manager
@@ -81,13 +76,6 @@ nixosConfigurations = {
 	};
 };
 
-##NVF standalone
-#packages."x86_64-linux".default = 
-#	(nvf.lib.neovimConfiguration {
-#	pkgs = nixpkgs.legacyPackages."x86_64-linux";
-#	modules = [./nixos/modules/nvf-configuration.nix];
-#	}).neovim;
-#
 # Standalone home-manager configuration entrypoint
 # Available through 'home-manager --flake .#your-username@your-hostname'
 homeConfigurations = {

@@ -9,7 +9,6 @@ imports =
 ./hardware-configuration.nix
 ./disko.nix
 inputs.sops-nix.nixosModules.sops
-./modules/nvf-configuration.nix
 ./modules/vm.nix
 ];
 
@@ -111,6 +110,9 @@ hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
 services= {
 
+vsftpd.enable = true;
+
+
 udev.packages = [ pkgs.gnome-settings-daemon ];
 
 #thermald.enable = true;
@@ -207,6 +209,7 @@ firefox.enable = false;
 };
 
 environment.systemPackages = with pkgs; [
+        
         gzdoom
         prismlauncher
         fontforge-gtk
