@@ -123,6 +123,7 @@
 
       enable = true;
       localUsers = true;
+      anonymousUser = true;
       anonymousUserNoPassword = true;
 
     };
