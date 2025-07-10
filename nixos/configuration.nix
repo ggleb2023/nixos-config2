@@ -125,7 +125,24 @@
       localUsers = true;
       anonymousUser = true;
       anonymousUserNoPassword = true;
-      extraConfig = "xferlog_file=/var/log/vsftpd.log";
+      extraConfig = "
+# Below verbose log is for transfer/upload, formatted for common tools stats.
+# Use command: tail -f /var/log/xferlog
+xferlog_enable=YES
+xferlog_file=/var/log/xferlog
+xferlog_std_format=YES
+
+# Below verbose log is for FTP commands and responses.
+# By default, logs were written to syslog instead of file.
+# Use command: tail -f /var/log/vsftpd.log
+# Use command: logread -f
+log_ftp_protocol=YES
+vsftpd_log_file=/var/log/vsftpd.log
+syslog_enable=NO
+
+# Allow log 1 and 2 to be written simultaneously.
+dual_log_enable=YES
+      ";
     };
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
