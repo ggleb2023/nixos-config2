@@ -125,7 +125,7 @@
       localUsers = true;
       anonymousUser = true;
       anonymousUserNoPassword = true;
-
+      extraConfig = "xferlog_file=/var/log/vsftpd.log";
     };
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
