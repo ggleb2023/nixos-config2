@@ -93,13 +93,6 @@
 
   security.polkit.enable = true;
 
-  #Permit EOLed electron package :(
-  #nixpkgs.config.permittedInsecurePackages = [
-  #"electron-27.3.11"
-  #];
-
-  #NVIDIA
-
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   hardware.graphics.enable = true;
@@ -115,35 +108,7 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
-  #END OF NVIDIA
-
   services = {
-
-    vsftpd = {
-
-      enable = true;
-      localUsers = true;
-      anonymousUser = true;
-      anonymousUserNoPassword = true;
-      extraConfig = "
-# Below verbose log is for transfer/upload, formatted for common tools stats.
-# Use command: tail -f /var/log/xferlog
-xferlog_enable=YES
-xferlog_file=/var/log/xferlog
-xferlog_std_format=YES
-
-# Below verbose log is for FTP commands and responses.
-# By default, logs were written to syslog instead of file.
-# Use command: tail -f /var/log/vsftpd.log
-# Use command: logread -f
-log_ftp_protocol=YES
-vsftpd_log_file=/var/log/vsftpd.log
-syslog_enable=NO
-
-# Allow log 1 and 2 to be written simultaneously.
-dual_log_enable=YES
-      ";
-    };
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
 
@@ -201,30 +166,30 @@ dual_log_enable=YES
       websocket.enable = true;
     };
 
-    sunshine = {
-      enable = true;
-      autoStart = true;
-      capSysAdmin = true;
-      openFirewall = true;
-    };
+   # sunshine = {
+   #   enable = true;
+   #   autoStart = true;
+   #   capSysAdmin = true;
+   #   openFirewall = true;
+   # };
 
-    gvfs.enable = true;
-    printing.enable = true;
+  #  gvfs.enable = true;
+  #   printing.enable = true;
 
-  };
+  # };
 
   programs = {
 
-    appimage.enable = true;
-    appimage.binfmt = true;
+    # appimage.enable = true;
+    # appimage.binfmt = true;
     #programs.appimage.package = pkgs.appimage-run.override { extraPkgs = pkgs: [
     #pkgs.python312
     #]; };
 
     steam = {
       enable = true;
-      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     };
 
     # mtr.enable = true;
@@ -234,9 +199,9 @@ dual_log_enable=YES
     # enableSSHSupport = true;
     # };
 
-    kdeconnect.enable = true;
+    # kdeconnect.enable = true;
 
-    firefox.enable = false;
+    # firefox.enable = false;
 
   };
 
