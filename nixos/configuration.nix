@@ -206,7 +206,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    vinegar
     gzdoom
     prismlauncher
     fontforge-gtk
