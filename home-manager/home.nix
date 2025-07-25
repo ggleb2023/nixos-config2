@@ -115,7 +115,7 @@
           WINEFSYNC = "1";
         };
         studio = {
-          dxvk = true;
+          dxvk = false;
           env = {
             DXVK_HUD = "0";
             MANGOHUD = "1";
@@ -124,6 +124,8 @@
             DFIntTaskSchedulerTargetFps = 144;
           };
           renderer = "Vulkan";
+          gpu = "";
+
         };
       };
 
