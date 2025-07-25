@@ -166,17 +166,17 @@
       websocket.enable = true;
     };
 
-   # sunshine = {
-   #   enable = true;
-   #   autoStart = true;
-   #   capSysAdmin = true;
-   #   openFirewall = true;
-   # };
+    # sunshine = {
+    #   enable = true;
+    #   autoStart = true;
+    #   capSysAdmin = true;
+    #   openFirewall = true;
+    # };
 
-  #  gvfs.enable = true;
-  #   printing.enable = true;
+    #  gvfs.enable = true;
+    #   printing.enable = true;
 
-  # };
+  };
 
   programs = {
 
@@ -206,7 +206,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-
+    vinegar
     gzdoom
     prismlauncher
     fontforge-gtk
