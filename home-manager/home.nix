@@ -105,32 +105,6 @@
         };
       };
     };
-
-    vinegar = {
-
-      enable = true;
-
-      settings = {
-        env = {
-          WINEFSYNC = "1";
-        };
-        studio = {
-          dxvk = false;
-          env = {
-            DXVK_HUD = "0";
-            MANGOHUD = "1";
-          };
-          fflags = {
-            DFIntTaskSchedulerTargetFps = 144;
-          };
-          renderer = "Vulkan";
-          gpu = "";
-
-        };
-      };
-
-    };
-
   };
 
   # Nicely reload system units when changing configs
