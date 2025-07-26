@@ -18,7 +18,7 @@
               };
             };
             root = {
-              size = "100%";
+              size = "50%";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -31,4 +31,3 @@
     };
   };
 }
-
