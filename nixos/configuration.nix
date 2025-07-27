@@ -183,8 +183,6 @@
     clash-verge = {
 
       enable = true;
-      serviceMode = true;
-      autoStart = true;
 
     };
 
