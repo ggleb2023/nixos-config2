@@ -218,7 +218,7 @@
     rustup
     vscode-fhs
     zed-editor
-    nekoray
+    clash-verge-rev
     blender
     telegram-desktop
     fastfetch
