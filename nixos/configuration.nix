@@ -74,6 +74,12 @@
 
   ];
 
+  musnix = {
+    enable = true;
+    rtcqs.enable = true;
+    kernel.realtime = true;
+  };
+
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
