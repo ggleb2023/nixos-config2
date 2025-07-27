@@ -80,7 +80,7 @@
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
-      useOSProber = false;
+      useOSProber = true;
     };
   };
 
