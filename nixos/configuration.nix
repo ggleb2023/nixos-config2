@@ -154,17 +154,17 @@
     #displayManager.sddm.enable = true;
     #desktopManager.plasma6.enable = true;
 
-    tailscale = {
-      enable = true;
+    # tailscale = {
+    #   enable = true;
 
-    };
+    # };
 
     # openssh.enable = true;
 
-    i2pd = {
-      enable = true;
-      websocket.enable = true;
-    };
+    # i2pd = {
+    #   enable = true;
+    #   websocket.enable = true;
+    # };
 
     # sunshine = {
     #   enable = true;
@@ -179,6 +179,15 @@
   };
 
   programs = {
+
+    clash-verge = {
+
+      enable = true;
+      # serviceMode = true;
+      tunMode = true;
+      autoStart = true;
+
+    };
 
     # appimage.enable = true;
     # appimage.binfmt = true;
@@ -218,7 +227,6 @@
     rustup
     vscode-fhs
     zed-editor
-    clash-verge-rev
     blender
     telegram-desktop
     fastfetch
