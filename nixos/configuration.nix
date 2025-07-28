@@ -317,7 +317,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
