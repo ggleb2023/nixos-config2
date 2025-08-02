@@ -287,7 +287,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Asia/Yakutsk";
+  time.timeZone = "Europe/Riga";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
