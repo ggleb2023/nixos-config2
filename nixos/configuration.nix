@@ -247,7 +247,6 @@
     krita
     floorp
     gcc
-    obs-studio
     ffmpeg
     onlyoffice-desktopeditors
     obsidian
@@ -260,7 +259,14 @@
         ppsspp
       ]
     ))
-
+    wrapOBS
+    {
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+      ];
+    }
   ];
 
   hardware = {
