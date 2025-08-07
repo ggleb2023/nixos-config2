@@ -1,6 +1,18 @@
 {
   description = "wawa";
 
+  nixConfig = {
+
+    substituters = [
+    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+    "https://cache.nixos.org"
+    "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   inputs = {
 
     #musnix
@@ -8,8 +20,10 @@
     musnix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-24.11/nixexprs.tar.xz";
+    nixpkgs-stable.url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/nixpkgs-unstable/nixexprs.tar.xz";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
@@ -83,7 +97,7 @@
                 extraSpecialArgs = { inherit inputs; };
               };
             }
-
+                nix.settings.trusted-users = [ "gleb" ];
           ];
         };
       };
