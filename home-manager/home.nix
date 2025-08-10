@@ -80,7 +80,19 @@
         	IdentityFile ~/.ssh/id_ed25519
         	'';
     };
+	
+vim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [ vim-airline ];
+    settings = { ignorecase = true; };
+    extraConfig = ''
+      set mouse=a
+set shiftwidth=4 smarttab
+    '';
   };
+  
+
+};
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
