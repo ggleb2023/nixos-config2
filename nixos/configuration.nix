@@ -234,6 +234,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    vim
     gzdoom
     prismlauncher
     fontforge-gtk
