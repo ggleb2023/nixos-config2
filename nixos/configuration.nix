@@ -237,15 +237,10 @@
     gzdoom
     prismlauncher
     fontforge-gtk
-    v2rayn
-    zettlr
     pureref
     deadbeef
     ghostty
     font-awesome
-    rustup
-    vscode-fhs
-    zed-editor
     blender
     telegram-desktop
     fastfetch

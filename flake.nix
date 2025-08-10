@@ -33,10 +33,6 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Hyprland
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
     # Cachix
     cachix.url = "github:cachix/cachix";
     cachix.inputs.nixpkgs.follows = "nixpkgs";
@@ -57,7 +53,6 @@
       nixpkgs,
       home-manager,
       disko,
-      hyprland,
       cachix,
       sops-nix,
       agenix,
@@ -78,7 +73,6 @@
           specialArgs = {
             inherit inputs outputs;
             inherit disko;
-            inherit hyprland nixpkgs;
           };
           # > Our main nixos configuration file <
           modules = [
