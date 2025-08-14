@@ -61,21 +61,11 @@
 
     };
 
-  programs.nix-ld.enable = true;
-
-  programs.nix-ld.libraries = with pkgs; [
-
-    # Add any missing dynamic libraries for unpackaged programs
-
-    # here, NOT in environment.systemPackages
-
-  ];
-
-  musnix = {
-    enable = true;
-    rtcqs.enable = true;
-    kernel.realtime = true;
-  };
+#  musnix = {
+#    enable = true;
+#    rtcqs.enable = true;
+#    kernel.realtime = true;
+#  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -96,20 +86,10 @@
 
   security.polkit.enable = true;
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [
     "modesetting"
-    "nvidia"
   ];
-  hardware.nvidia.open = false;
-  hardware.nvidia.prime = {
-    offload.enableOffloadCmd = true;
-    offload.enable = true;
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
 
   services = {
 
@@ -183,24 +163,24 @@
 
   programs = {
 
-    obs-studio = {
-      enable = true;
-
-      # optional Nvidia hardware acceleration
-      package = (
-        pkgs.obs-studio.override {
-          cudaSupport = true;
-        }
-      );
-
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-        obs-gstreamer
-        obs-vkcapture
-      ];
-    };
+#    obs-studio = {
+#      enable = true;
+#
+#      # optional Nvidia hardware acceleration
+#      package = (
+#        pkgs.obs-studio.override {
+#          cudaSupport = true;
+#        }
+#      );
+#
+#      plugins = with pkgs.obs-studio-plugins; [
+#        wlrobs
+#        obs-backgroundremoval
+#        obs-pipewire-audio-capture
+#        obs-gstreamer
+#        obs-vkcapture
+#      ];
+#    };
 
     clash-verge = {
 
@@ -236,9 +216,6 @@
   environment.systemPackages = with pkgs; [
     gzdoom
     prismlauncher
-    fontforge-gtk
-    pureref
-    deadbeef
     ghostty
     font-awesome
     blender
@@ -246,7 +223,6 @@
     fastfetch
     btop
     usbutils
-    legcord
     hyfetch
     pciutils
     unrar
@@ -259,17 +235,15 @@
     floorp
     gcc
     ffmpeg
-    onlyoffice-desktopeditors
-    obsidian
     mars-mips
     age
     inputs.agenix.packages."${system}".default
-    (retroarch.withCores (
-      cores: with cores; [
-        snes9x
-        ppsspp
-      ]
-    ))
+    #(retroarch.withCores (
+    #  cores: with cores; [
+    #    snes9x
+    #    ppsspp
+    #  ]
+    #))
 
   (vscode-with-extensions.override {
     vscode = vscodium;
