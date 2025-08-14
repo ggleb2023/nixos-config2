@@ -16,7 +16,6 @@
     ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
-    ./modules/niri.nix
   ];
 
   nixpkgs = {
@@ -62,11 +61,11 @@
 
     };
 
-#  musnix = {
-#    enable = true;
-#    rtcqs.enable = true;
-#    kernel.realtime = true;
-#  };
+  musnix = {
+    enable = true;
+    rtcqs.enable = true;
+    kernel.realtime = true;
+  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -80,14 +79,31 @@
 
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.swaylock = {};
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [
     "modesetting"
   ];
 
+  swapDevices = [ { 
+    device = "/var/lib/swapfile";
+
+
+    size = 8*1024;
+
+
+  } ];
+
   services = {
+
+    xserver = {
+      enable = true;
+      desktopManager = {
+        xterm.enable = false;
+        xfce.enable = true;
+      };
+    };
+    displayManager.defaultSession = "xfce";
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
 
@@ -203,17 +219,11 @@
     # enableSSHSupport = true;
     # };
 
-    # kdeconnect.enable = true;
-
-    # firefox.enable = false;
-
   };
 
   environment.systemPackages = with pkgs; [
-    alacritty fuzzel swaylock mako swayidle
-    gzdoom
+   alacritty
     prismlauncher
-    ghostty
     font-awesome
     blender
     telegram-desktop
