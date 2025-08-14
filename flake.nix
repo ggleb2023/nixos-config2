@@ -16,6 +16,11 @@
 
   inputs = {
 
+    #niri
+    #https://github.com/sodiboo/niri-flake
+    niri.url = "github:sodiboo/niri-flake";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
     #musnix
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +63,7 @@
       sops-nix,
       agenix,
       musnix,
+      niri,
       ...
     }
 
@@ -92,6 +98,7 @@
                 extraSpecialArgs = { inherit inputs; };
               };
             }
+            niri.nixosModules.niri
           ];
         };
       };

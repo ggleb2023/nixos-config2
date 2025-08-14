@@ -16,6 +16,7 @@
     ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
+    ./modules/niri.nix
   ];
 
   nixpkgs = {
@@ -77,14 +78,9 @@
     };
   };
 
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-console
-  ];
-
   security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.swaylock = {};
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [
@@ -214,6 +210,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    alacritty fuzzel swaylock mako swayidle
     gzdoom
     prismlauncher
     ghostty
