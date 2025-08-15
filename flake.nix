@@ -41,10 +41,14 @@
     # sops-nix
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Agenix
+   
+     # Agenix
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # niri-flake 
+    #https://github.com/sodiboo/niri-flake
+    niri.url = "github:sodiboo/niri-flake";
 
   };
 
