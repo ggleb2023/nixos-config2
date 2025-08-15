@@ -62,6 +62,7 @@
       sops-nix,
       agenix,
       musnix,
+      niri,
       ...
     }
 
@@ -88,6 +89,7 @@
             inputs.musnix.nixosModules.musnix
             { nix.settings.trusted-users = [ "gleb" ]; }
             home-manager.nixosModules.home-manager
+            niri.nixosModules.niri
             {
               home-manager = {
                 useGlobalPkgs = true;

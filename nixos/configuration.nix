@@ -16,6 +16,7 @@
     ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
+    ./modules/niri.nix
   ];
 
   nixpkgs = {
