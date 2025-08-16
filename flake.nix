@@ -83,7 +83,6 @@
           # > Our main nixos configuration file <
           modules = [
             ./nixos/configuration.nix
-            ./nixos/modules/niri.nix
             disko.nixosModules.default
             sops-nix.nixosModules.sops
             agenix.nixosModules.default
