@@ -16,12 +16,13 @@
     ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
-    ./modules/niri.nix
   ];
 
   nixpkgs = {
     # You can add overlays here
     overlays = [
+
+      inputs.niri.overlays.niri
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
       # Or define it inline, for example:
@@ -163,7 +164,7 @@
   };
 
   programs = {
-
+    niri.enable = true;
 #    obs-studio = {
 #      enable = true;
 #
