@@ -184,12 +184,6 @@
 #      ];
 #    };
 
-    clash-verge = {
-
-      enable = true;
-
-    };
-
     # appimage.enable = true;
     # appimage.binfmt = true;
     #programs.appimage.package = pkgs.appimage-run.override { extraPkgs = pkgs: [
@@ -212,6 +206,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    cage swww wayland-utils wl-clipboard xwayland-satellite-unstable
+    flclash
     xiccd
     alacritty
     prismlauncher

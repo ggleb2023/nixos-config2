@@ -54,12 +54,11 @@
     '')
   ];
 
-  # Enable home-manager and git
   programs = {
 
     home-manager.enable = true;
 
-    git = {
+        git = {
       enable = true;
       userName = "ggleb2023";
       userEmail = "151332451+ggleb2023@users.noreply.github.com";

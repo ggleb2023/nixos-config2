@@ -1,24 +1,15 @@
-{ pkgs, inputs, config, ... }: 
+{ pkgs, inputs, config, lib, ... }: 
 {
-  environment.systemPackages = with pkgs; [
-    cage
-    swww
-    wayland-utils
-    wl-clipboard
-    xwayland-satellite-unstable
-  ];
-
-  home-manager.users.gleb = {
     services.swww.enable = true;
 
     programs.niri = {
       settings = {
         environment."NIXOS_OZONE_WL" = "1";
-        outputs."eDP-1".scale = 1.5;
+        outputs."eDP-1".scale = 1.25;
         spawn-at-startup = [
           { command = [ "swww-daemon" ]; }
           { command = [ "waybar" ]; }
-          { command = [ "xremap" "~/.config/xremap/config.yaml" "--device" "/dev/input/event2" "--device" "/dev/input/event3" ]; }
+         # { command = [ "xremap" "~/.config/xremap/config.yaml" "--device" "/dev/input/event2" "--device" "/dev/input/event3" ]; }
         ];
         input = {
           keyboard.xkb = {
@@ -43,7 +34,7 @@
             { proportion = 1.0; }
           ];
           default-column-width = {
-            proportion = 1.0 / 2.0;
+            proportion = 1.0 / 1.5;
           };
           focus-ring = {
             width = 4;
@@ -55,8 +46,8 @@
             top = 32;
           };
         };
-        binds =
-          with config.home-manager.users.gleb.lib.niri.actions;
+            binds =
+          with config.lib.niri.actions;
           let
             mod = "Super";
           in
@@ -66,7 +57,7 @@
             "${mod}+Return".action = spawn "${pkgs.kitty}/bin/kitty";
             "${mod}+Shift+E".action = spawn "${pkgs.wlogout}/bin/wlogout";
             "${mod}+Shift+Q".action = close-window;
-            "${mod}+Space".action = spawn "${pkgs.wofi}/bin/wofi" "--show" "drun" "-Ibm" "-W" "576";
+            "${mod}+G".action = spawn "${pkgs.wofi}/bin/wofi" "--show" "drun" "-Ibm" "-W" "576";
             "${mod}+V".action = toggle-window-floating;
 
             # movement
@@ -93,5 +84,4 @@
          };
       };
     };
-  };
 }
