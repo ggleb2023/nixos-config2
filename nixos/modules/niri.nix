@@ -9,7 +9,7 @@
         spawn-at-startup = [
           { command = [ "swww-daemon" ]; }
           { command = [ "waybar" ]; }
-         # { command = [ "xremap" "~/.config/xremap/config.yaml" "--device" "/dev/input/event2" "--device" "/dev/input/event3" ]; }
+          { command = [ "xremap" "~/.config/xremap/config.yaml" "--device" "/dev/input/event2" "--device" "/dev/input/event3" ]; }
         ];
         input = {
           keyboard.xkb = {
@@ -24,6 +24,9 @@
             tap = true;
             dwt = true;
           };
+          mouse = {
+            accel-profile = "flat";
+          }; 
         };
         layout = {
           gaps = 16;
@@ -59,6 +62,14 @@
             "${mod}+Shift+Q".action = close-window;
             "${mod}+G".action = spawn "${pkgs.wofi}/bin/wofi" "--show" "drun" "-Ibm" "-W" "576";
             "${mod}+V".action = toggle-window-floating;
+            "${mod}+Ctrl+L".action = spawn "${pkgs.swaylock}/bin/swaylock";
+            
+            "${mod}+Shift+S".action = screenshot;
+
+            #audio
+            "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-";
+            "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+";
+            "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
 
             # movement
             "${mod}+H".action = focus-column-left;
