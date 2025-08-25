@@ -1,4 +1,4 @@
-{pkgs}:
+{pkgs, ...}:
 {
   programs.nvf = {
     enable = true;
@@ -19,7 +19,6 @@
         nix.enable = true;
         };
       };
-    };
     };
   };
 }

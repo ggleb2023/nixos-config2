@@ -50,6 +50,10 @@
     #https://github.com/sodiboo/niri-flake
     niri.url = "github:sodiboo/niri-flake";
 
+    # nvf
+    # https://github.com/NotAShelf/nvf
+    nvf.url = "github:notashelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -63,6 +67,7 @@
       agenix,
       musnix,
       niri,
+      nvf,
       ...
     }
 
@@ -90,6 +95,7 @@
             { nix.settings.trusted-users = [ "gleb" ]; }
             home-manager.nixosModules.home-manager
             niri.nixosModules.niri
+            nvf.nixosModules.default
             {
               home-manager = {
                 useGlobalPkgs = true;

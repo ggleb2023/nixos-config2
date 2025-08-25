@@ -16,6 +16,7 @@
     ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
+    ./modules/nvf.nix
   ];
 
   nixpkgs = {
@@ -37,16 +38,12 @@
   };
 
   nix =
-
     let
-
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-
     in
     {
 
       settings = {
-
         # Enable flakes and new 'nix' command
         experimental-features = "nix-command flakes";
         # Opinionated: disable global registry
@@ -89,14 +86,34 @@
 
   swapDevices = [ { 
     device = "/var/lib/swapfile";
-
-
     size = 8*1024;
-
-
   } ];
 
+  zramSwap.enable = true;
+
+  environment.gnome.excludePackages = (with pkgs; [
+    atomix # puzzle game
+    cheese # webcam tool
+    epiphany # web browser
+    evince # document viewer
+    geary # email reader
+    gedit # text editor
+    gnome-characters
+    gnome-music
+    gnome-photos
+    gnome-terminal
+    gnome-tour
+    hitori # sudoku game
+    iagno # go game
+    totem # video player
+  ]);
+
   services = {
+
+    xserver = {
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
 
     udev.packages = [ pkgs.gnome-settings-daemon ];
 
@@ -164,7 +181,6 @@
   };
 
   programs = {
-    niri.enable = true;
 #    obs-studio = {
 #      enable = true;
 #
@@ -183,6 +199,10 @@
 #        obs-vkcapture
 #      ];
 #    };
+
+    clash-verge = {
+      enable = true;
+    };
 
     # appimage.enable = true;
     # appimage.binfmt = true;
@@ -204,14 +224,12 @@
     # };
 
   };
+  fonts.packages = with pkgs; [
+    font-awesome
+  ];
 
   environment.systemPackages = with pkgs; [
-    cage swww wayland-utils wl-clipboard xwayland-satellite-unstable
-    flclash
-    xiccd
-    alacritty
     prismlauncher
-    font-awesome
     blender
     telegram-desktop
     fastfetch
@@ -226,6 +244,7 @@
     qdirstat
     gimp
     krita
+    kitty
     floorp
     gcc
     ffmpeg
@@ -245,16 +264,11 @@
   ];
 
   hardware = {
-
     bluetooth = {
-
       enable = true;
       powerOnBoot = true;
-
-    };
-
-    opentabletdriver.enable = true;
-
+      };
+      opentabletdriver.enable = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -296,7 +310,7 @@
     jack.enable = true;
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    # media-session.enable = true;
   };
   hardware.pulseaudio.enable = false;
 
