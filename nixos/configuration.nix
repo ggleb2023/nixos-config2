@@ -1,15 +1,11 @@
 # for help type nixos-help :3
-
 {
   inputs,
   lib,
   config,
   pkgs,
   ...
-}:
-
-{
-
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -22,7 +18,6 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-
       inputs.niri.overlays.niri
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -37,28 +32,24 @@
     config.allowUnfree = true;
   };
 
-  nix =
-    let
-      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-    in
-    {
-
-      settings = {
-        # Enable flakes and new 'nix' command
-        experimental-features = "nix-command flakes";
-        # Opinionated: disable global registry
-        flake-registry = "";
-        # Workaround for https://github.com/NixOS/nix/issues/9574
-        nix-path = config.nix.nixPath;
-      };
-      # Opinionated: disable channels
-      channel.enable = false;
-
-      # Opinionated: make flake registry and nix path match flake inputs
-      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-
+  nix = let
+    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  in {
+    settings = {
+      # Enable flakes and new 'nix' command
+      experimental-features = "nix-command flakes";
+      # Opinionated: disable global registry
+      flake-registry = "";
+      # Workaround for https://github.com/NixOS/nix/issues/9574
+      nix-path = config.nix.nixPath;
     };
+    # Opinionated: disable channels
+    channel.enable = false;
+
+    # Opinionated: make flake registry and nix path match flake inputs
+    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+  };
 
   musnix = {
     enable = true;
@@ -70,7 +61,7 @@
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      devices = [ "nodev" ];
+      devices = ["nodev"];
       efiSupport = true;
       useOSProber = true;
     };
@@ -84,14 +75,16 @@
     "modesetting"
   ];
 
-  swapDevices = [ { 
-    device = "/var/lib/swapfile";
-    size = 8*1024;
-  } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024;
+    }
+  ];
 
   zramSwap.enable = true;
 
-  environment.gnome.excludePackages = (with pkgs; [
+  environment.gnome.excludePackages = with pkgs; [
     atomix # puzzle game
     cheese # webcam tool
     epiphany # web browser
@@ -106,16 +99,15 @@
     hitori # sudoku game
     iagno # go game
     totem # video player
-  ]);
+  ];
 
   services = {
-
     xserver = {
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
     };
 
-    udev.packages = [ pkgs.gnome-settings-daemon ];
+    udev.packages = [pkgs.gnome-settings-daemon];
 
     #thermald.enable = true;
 
@@ -177,28 +169,27 @@
 
     #  gvfs.enable = true;
     #   printing.enable = true;
-
   };
 
   programs = {
-#    obs-studio = {
-#      enable = true;
-#
-#      # optional Nvidia hardware acceleration
-#      package = (
-#        pkgs.obs-studio.override {
-#          cudaSupport = true;
-#        }
-#      );
-#
-#      plugins = with pkgs.obs-studio-plugins; [
-#        wlrobs
-#        obs-backgroundremoval
-#        obs-pipewire-audio-capture
-#        obs-gstreamer
-#        obs-vkcapture
-#      ];
-#    };
+    #    obs-studio = {
+    #      enable = true;
+    #
+    #      # optional Nvidia hardware acceleration
+    #      package = (
+    #        pkgs.obs-studio.override {
+    #          cudaSupport = true;
+    #        }
+    #      );
+    #
+    #      plugins = with pkgs.obs-studio-plugins; [
+    #        wlrobs
+    #        obs-backgroundremoval
+    #        obs-pipewire-audio-capture
+    #        obs-gstreamer
+    #        obs-vkcapture
+    #      ];
+    #    };
 
     clash-verge = {
       enable = true;
@@ -222,13 +213,14 @@
     # enable = true;
     # enableSSHSupport = true;
     # };
-
   };
   fonts.packages = with pkgs; [
     font-awesome
   ];
 
   environment.systemPackages = with pkgs; [
+    onlyoffice-bin
+    (ffmpeg-full.override {withUnfree = true;})
     prismlauncher
     blender
     telegram-desktop
@@ -247,7 +239,6 @@
     kitty
     floorp
     gcc
-    ffmpeg
     mars-mips
     age
     inputs.agenix.packages."${system}".default
@@ -258,17 +249,17 @@
     #  ]
     #))
 
-  (vscode-with-extensions.override {
-    vscode = vscodium;
-  })
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+    })
   ];
 
   hardware = {
     bluetooth = {
       enable = true;
       powerOnBoot = true;
-      };
-      opentabletdriver.enable = true;
+    };
+    opentabletdriver.enable = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -324,7 +315,7 @@
     ];
   };
 
-  users.extraUsers.gleb.extraGroups = [ "audio" ];
+  users.extraUsers.gleb.extraGroups = ["audio"];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
