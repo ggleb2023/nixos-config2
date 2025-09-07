@@ -6,9 +6,7 @@
   config,
   pkgs,
   ...
-}:
-
-{
+}: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -53,13 +51,18 @@
     '')
   ];
 
-   home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
   programs = {
-
     home-manager.enable = true;
 
-        git = {
+    ghostty = {
+      enable = true;
+      enableBashIntegration = true;
+      installVimSyntax = true;
+    };
+
+    git = {
       enable = true;
       userName = "ggleb2023";
       userEmail = "151332451+ggleb2023@users.noreply.github.com";
@@ -78,22 +81,20 @@
     ssh = {
       enable = true;
       extraConfig = ''
-        	IdentityFile ~/.ssh/id_ed25519
-        	'';
+        IdentityFile ~/.ssh/id_ed25519
+      '';
     };
-	
-vim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [ vim-airline ];
-    settings = { ignorecase = true; };
-    extraConfig = ''
-      set mouse=a
-set shiftwidth=4 smarttab
-    '';
-  };
-  
 
-};
+    vim = {
+      enable = true;
+      plugins = with pkgs.vimPlugins; [vim-airline];
+      settings = {ignorecase = true;};
+      extraConfig = ''
+              set mouse=a
+        set shiftwidth=4 smarttab
+      '';
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

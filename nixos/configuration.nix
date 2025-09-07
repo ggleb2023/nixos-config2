@@ -44,7 +44,7 @@
       nix-path = config.nix.nixPath;
     };
     # Opinionated: disable channels
-    channel.enable = false;
+    channel.enable = true;
 
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
@@ -172,24 +172,15 @@
   };
 
   programs = {
-    #    obs-studio = {
-    #      enable = true;
-    #
-    #      # optional Nvidia hardware acceleration
-    #      package = (
-    #        pkgs.obs-studio.override {
-    #          cudaSupport = true;
-    #        }
-    #      );
-    #
-    #      plugins = with pkgs.obs-studio-plugins; [
-    #        wlrobs
-    #        obs-backgroundremoval
-    #        obs-pipewire-audio-capture
-    #        obs-gstreamer
-    #        obs-vkcapture
-    #      ];
-    #    };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+        obs-gstreamer
+        obs-vkcapture
+      ];
+    };
 
     clash-verge = {
       enable = true;
@@ -236,18 +227,18 @@
     qdirstat
     gimp
     krita
-    kitty
     floorp
     gcc
     mars-mips
     age
     inputs.agenix.packages."${system}".default
-    #(retroarch.withCores (
-    #  cores: with cores; [
-    #    snes9x
-    #    ppsspp
-    #  ]
-    #))
+    (retroarch.withCores (
+      cores:
+        with cores; [
+          snes9x
+          ppsspp
+        ]
+    ))
 
     (vscode-with-extensions.override {
       vscode = vscodium;
