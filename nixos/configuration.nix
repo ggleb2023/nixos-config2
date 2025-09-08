@@ -13,6 +13,7 @@
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
     ./modules/nvf.nix
+    ./modules/8bitdo.nix
   ];
 
   nixpkgs = {
