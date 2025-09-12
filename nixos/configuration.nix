@@ -13,7 +13,6 @@
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
     ./modules/nvf.nix
-    ./modules/8bitdo.nix
   ];
 
   nixpkgs = {
@@ -32,6 +31,7 @@
     # Configure your nixpkgs instance
     config.allowUnfree = true;
   };
+  # programs.niri.package = pkgs.niri-unstable;
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -54,8 +54,8 @@
 
   musnix = {
     enable = true;
-    rtcqs.enable = true;
-    kernel.realtime = true;
+    rtcqs.enable = false;
+    kernel.realtime = false;
   };
 
   boot.loader = {
@@ -85,30 +85,42 @@
 
   zramSwap.enable = true;
 
-  environment.gnome.excludePackages = with pkgs; [
-    atomix # puzzle game
-    cheese # webcam tool
-    epiphany # web browser
-    evince # document viewer
-    geary # email reader
-    gedit # text editor
-    gnome-characters
-    gnome-music
-    gnome-photos
-    gnome-terminal
-    gnome-tour
-    hitori # sudoku game
-    iagno # go game
-    totem # video player
-  ];
+  #  environment.gnome.excludePackages = with pkgs; [
+  #    atomix # puzzle game
+  #    cheese # webcam tool
+  #    epiphany # web browser
+  #    evince # document viewer
+  #    geary # email reader
+  #    gedit # text editor
+  #    gnome-characters
+  #    gnome-music
+  #    gnome-photos
+  #    gnome-terminal
+  #    gnome-tour
+  #    hitori # sudoku game
+  #    iagno # go game
+  #    totem # video player
+  #  ];
+  #
 
   services = {
-    xserver = {
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+    desktopManager.plasma6.enable = true;
+    displayManager = {
+      sddm.enable = true;
+      sddm.wayland.enable = true;
     };
 
-    udev.packages = [pkgs.gnome-settings-daemon];
+    xserver = {
+      enable = true;
+    };
+
+    udev.packages = [
+      #pkgs.gnome-settings-daemon
+    ];
+
+    #    udev.extraRules = ''
+    #      PROGRAM="${pkgs.procps}/bin/pgrep -l "Hollow Knight S"", KERNEL=="js[0-9]*", ATTRS{idVendor}=="3016", ATTRS{idProduct}=="2dc8", MODE="0000"
+    #    '';
 
     #thermald.enable = true;
 
@@ -173,6 +185,7 @@
   };
 
   programs = {
+    niri.enable = true;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -209,8 +222,10 @@
   fonts.packages = with pkgs; [
     font-awesome
   ];
-
   environment.systemPackages = with pkgs; [
+    kdePackages.sddm-kcm
+    wayland-utils
+    wl-clipboard
     onlyoffice-bin
     (ffmpeg-full.override {withUnfree = true;})
     prismlauncher

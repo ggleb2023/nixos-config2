@@ -9,6 +9,7 @@
 }: {
   # You can import other home-manager modules here
   imports = [
+    #../nixos/modules/niri.nix
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
 

@@ -3,6 +3,9 @@
     enable = true;
     settings = {
       vim = {
+        startPlugins = with pkgs.vimPlugins; [
+          vimtex
+        ];
         options = {
           shiftwidth = 2;
           smartindent = true;
@@ -27,6 +30,7 @@
           typst.enable = true;
           rust.enable = true;
           nix.enable = true;
+          java.enable = true;
         };
         spellcheck = {
           enable = true;
