@@ -6,6 +6,8 @@
   pkgs,
   ...
 }: {
+  home-manager.backupFileExtension = "backup";
+
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -51,6 +53,11 @@
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
+  #exporting vars
+  environment.variables = {
+    http-proxy = "http://127.0.0.1:7899";
+    https-proxy = "http://127.0.0.1:7899";
+  };
 
   musnix = {
     enable = true;
@@ -70,6 +77,8 @@
 
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
+
+  services.pcscd.enable = true;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = [
@@ -102,20 +111,17 @@
   #    totem # video player
   #  ];
   #
+  services.gnome.games.enable = false;
+  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-user-docs];
 
   services = {
-    desktopManager.plasma6.enable = true;
+    desktopManager.gnome.enable = true;
     displayManager = {
-      sddm.enable = true;
-      sddm.wayland.enable = true;
-    };
-
-    xserver = {
-      enable = true;
+      gdm.enable = true;
     };
 
     udev.packages = [
-      #pkgs.gnome-settings-daemon
+      pkgs.gnome-settings-daemon
     ];
 
     #    udev.extraRules = ''
@@ -161,10 +167,9 @@
       };
     };
 
-    # tailscale = {
-    #   enable = true;
-
-    # };
+    tailscale = {
+      enable = true;
+    };
 
     # openssh.enable = true;
 
@@ -173,19 +178,19 @@
     #   websocket.enable = true;
     # };
 
-    # sunshine = {
-    #   enable = true;
-    #   autoStart = true;
-    #   capSysAdmin = true;
-    #   openFirewall = true;
-    # };
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
 
     #  gvfs.enable = true;
     #   printing.enable = true;
   };
 
   programs = {
-    niri.enable = true;
+    niri.enable = false;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -223,7 +228,13 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.just-perfection
+    gnomeExtensions.arc-menu
+    gnomeExtensions.appindicator
     kdePackages.sddm-kcm
+    pinentry-curses
+    jetbrains.idea-community
     wayland-utils
     wl-clipboard
     onlyoffice-bin
@@ -280,7 +291,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Europe/Riga";
+  time.timeZone = "Asia/Pyongyang";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
