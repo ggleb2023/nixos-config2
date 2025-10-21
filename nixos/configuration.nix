@@ -5,7 +5,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   home-manager.backupFileExtension = "backup";
 
   imports = [
@@ -20,7 +21,7 @@
   nixpkgs = {
     # You can add overlays here
     overlays = [
-      inputs.niri.overlays.niri
+      #inputs.niri.overlays.niri
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
       # Or define it inline, for example:
@@ -35,29 +36,28 @@
   };
   # programs.niri.package = pkgs.niri-unstable;
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
-    };
-    # Opinionated: disable channels
-    channel.enable = true;
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+      };
+      # Opinionated: disable channels
+      channel.enable = true;
 
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
-  #exporting vars
-  environment.variables = {
-    http-proxy = "http://127.0.0.1:7899";
-    https-proxy = "http://127.0.0.1:7899";
-  };
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+      binaryCaches = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
+    };
 
   musnix = {
     enable = true;
@@ -69,7 +69,7 @@
     efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      devices = ["nodev"];
+      devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
     };
@@ -112,7 +112,10 @@
   #  ];
   #
   services.gnome.games.enable = false;
-  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-user-docs];
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    gnome-user-docs
+  ];
 
   services = {
     desktopManager.gnome.enable = true;
@@ -190,7 +193,7 @@
   };
 
   programs = {
-    niri.enable = false;
+    #niri.enable = false;
     obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
@@ -233,12 +236,14 @@
     gnomeExtensions.arc-menu
     gnomeExtensions.appindicator
     kdePackages.sddm-kcm
+    kdePackages.kleopatra
     pinentry-curses
+    osu-lazer-bin
     jetbrains.idea-community
     wayland-utils
     wl-clipboard
     onlyoffice-bin
-    (ffmpeg-full.override {withUnfree = true;})
+    (ffmpeg-full.override { withUnfree = true; })
     prismlauncher
     blender
     telegram-desktop
@@ -260,11 +265,10 @@
     age
     inputs.agenix.packages."${system}".default
     (retroarch.withCores (
-      cores:
-        with cores; [
-          snes9x
-          ppsspp
-        ]
+      cores: with cores; [
+        snes9x
+        ppsspp
+      ]
     ))
 
     (vscode-with-extensions.override {
@@ -333,7 +337,7 @@
     ];
   };
 
-  users.extraUsers.gleb.extraGroups = ["audio"];
+  users.extraUsers.gleb.extraGroups = [ "audio" ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

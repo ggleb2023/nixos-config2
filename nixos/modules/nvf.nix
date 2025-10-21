@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.nvf = {
     enable = true;
     settings = {
@@ -22,7 +23,7 @@
           formatOnSave = true;
         };
         languages = {
-          enableFormat = true;
+          enableFormat = false;
           enableTreesitter = true;
 
           assembly.enable = true;
@@ -34,7 +35,11 @@
         };
         spellcheck = {
           enable = true;
-          languages = ["en" "ru" "de"];
+          languages = [
+            "en"
+            "ru"
+            "de"
+          ];
         };
         ui = {
           noice.enable = true;

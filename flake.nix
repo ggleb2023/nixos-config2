@@ -41,14 +41,14 @@
     # sops-nix
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-   
-     # Agenix
+
+    # Agenix
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # niri-flake 
+    # niri-flake
     #https://github.com/sodiboo/niri-flake
-    niri.url = "github:sodiboo/niri-flake";
+    #niri.url = "github:sodiboo/niri-flake";
 
     # nvf
     # https://github.com/NotAShelf/nvf
@@ -66,7 +66,7 @@
       sops-nix,
       agenix,
       musnix,
-      niri,
+      #niri,
       nvf,
       ...
     }
@@ -94,7 +94,7 @@
             inputs.musnix.nixosModules.musnix
             { nix.settings.trusted-users = [ "gleb" ]; }
             home-manager.nixosModules.home-manager
-            niri.nixosModules.niri
+            #niri.nixosModules.niri
             nvf.nixosModules.default
             {
               home-manager = {
@@ -115,9 +115,10 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs outputs; };
           # > Our main home-manager configuration file <
-          modules = [ ./home-manager/home.nix
-                       niri.homeModules.niri
-                     ];
+          modules = [
+            ./home-manager/home.nix
+            #niri.homeModules.niri
+          ];
 
         };
       };
