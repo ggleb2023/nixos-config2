@@ -60,7 +60,7 @@
     };
 
   musnix = {
-    enable = true;
+    enable = false;
     rtcqs.enable = false;
     kernel.realtime = false;
   };
@@ -194,15 +194,15 @@
 
   programs = {
     #niri.enable = false;
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-pipewire-audio-capture
-        obs-gstreamer
-        obs-vkcapture
-      ];
-    };
+    #obs-studio = {
+    #  enable = true;
+    #  plugins = with pkgs.obs-studio-plugins; [
+    #    wlrobs
+    #    obs-pipewire-audio-capture
+    #    obs-gstreamer
+    #    obs-vkcapture
+    #  ];
+    #};
 
     clash-verge = {
       enable = true;
@@ -231,21 +231,16 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.just-perfection
-    gnomeExtensions.arc-menu
     gnomeExtensions.appindicator
     kdePackages.sddm-kcm
     kdePackages.kleopatra
     pinentry-curses
-    osu-lazer-bin
-    jetbrains.idea-community
+    #jetbrains.idea-community
     wayland-utils
     wl-clipboard
     onlyoffice-bin
-    (ffmpeg-full.override { withUnfree = true; })
+    #(ffmpeg-full.override { withUnfree = true; })
     prismlauncher
-    blender
     telegram-desktop
     fastfetch
     btop
@@ -264,16 +259,16 @@
     mars-mips
     age
     inputs.agenix.packages."${system}".default
-    (retroarch.withCores (
-      cores: with cores; [
-        snes9x
-        ppsspp
-      ]
-    ))
+    #(retroarch.withCores (
+    #  cores: with cores; [
+    #    snes9x
+    #    ppsspp
+    #  ]
+    #))
 
-    (vscode-with-extensions.override {
-      vscode = vscodium;
-    })
+    #(vscode-with-extensions.override {
+    #  vscode = vscodium;
+    #})
   ];
 
   hardware = {
