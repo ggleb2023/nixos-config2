@@ -32,6 +32,9 @@
           rust.enable = true;
           nix.enable = true;
           java.enable = true;
+          css.enable = true;
+          html.enable = true;
+          ts.enable = true;
         };
         spellcheck = {
           enable = true;

@@ -122,6 +122,10 @@
     displayManager = {
       gdm.enable = true;
     };
+    desktopManager.gnome.extraGSettingsOverrides = ''
+      [org.gnome.mutter]
+      experimental-features=['scale-monitor-framebuffer', 'xwayland-native-scaling']
+    '';
 
     udev.packages = [
       pkgs.gnome-settings-daemon
@@ -193,6 +197,27 @@
   };
 
   programs = {
+
+    amnezia-vpn.enable = true;
+
+    foot = {
+      enable = true;
+      enableBashIntegration = true;
+      settings = {
+
+        main = {
+          term = "xterm-256color";
+          font = "monospace:size=9";
+          dpi-aware = "yes";
+        };
+
+        mouse = {
+          hide-when-typing = "yes";
+        };
+      };
+
+    };
+
     #niri.enable = false;
     #obs-studio = {
     #  enable = true;
