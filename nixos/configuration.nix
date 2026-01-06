@@ -65,6 +65,7 @@
     kernel.realtime = false;
   };
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
@@ -80,10 +81,23 @@
 
   services.pcscd.enable = true;
 
-  hardware.graphics.enable = true;
+  services.xserver.enable = true;
   services.xserver.videoDrivers = [
-    "modesetting"
+    "amdgpu"
   ];
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+  hardware.graphics.enable32Bit = true; # For 32 bit applications
+  hardware.graphics.extraPackages = with pkgs; [
+    amdvlk
+  ];
+  # For 32 bit applications
+  hardware.graphics.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
+  services.flatpak.enable = true;
 
   swapDevices = [
     {
@@ -262,6 +276,7 @@
     pinentry-curses
     #jetbrains.idea-community
     wayland-utils
+    osu-lazer-bin
     wl-clipboard
     onlyoffice-bin
     #(ffmpeg-full.override { withUnfree = true; })
@@ -313,6 +328,22 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  networking.nameservers = [
+    "1.1.1.1#one.one.one.one"
+    "1.0.0.1#one.one.one.one"
+  ];
+
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    domains = [ "~." ];
+    fallbackDns = [
+      "1.1.1.1#one.one.one.one"
+      "1.0.0.1#one.one.one.one"
+    ];
+    dnsovertls = "true";
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Pyongyang";
