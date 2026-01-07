@@ -135,7 +135,7 @@
   services = {
     fprintd.enable = true;
     fprintd.tod.enable = true;
-    fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+    fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
 
     desktopManager.gnome.enable = true;
     displayManager = {
