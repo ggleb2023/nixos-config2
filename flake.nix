@@ -31,8 +31,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Disko
-    disko.url = "github:nix-community/disko/latest";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+    #disko.url = "github:nix-community/disko/latest";
+    #disko.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix
     cachix.url = "github:cachix/cachix";
@@ -61,7 +61,6 @@
       self,
       nixpkgs,
       home-manager,
-      disko,
       cachix,
       sops-nix,
       agenix,
@@ -83,12 +82,10 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs outputs;
-            inherit disko;
           };
           # > Our main nixos configuration file <
           modules = [
             ./nixos/configuration.nix
-            disko.nixosModules.default
             sops-nix.nixosModules.sops
             agenix.nixosModules.default
             inputs.musnix.nixosModules.musnix

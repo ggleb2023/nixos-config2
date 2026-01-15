@@ -35,13 +35,13 @@
           css.enable = true;
           html.enable = true;
           ts.enable = true;
+          python.enable = true;
         };
         spellcheck = {
           enable = true;
           languages = [
             "en"
             "ru"
-            "de"
           ];
         };
         ui = {

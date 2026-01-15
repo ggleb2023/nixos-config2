@@ -12,7 +12,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./disko.nix
     inputs.sops-nix.nixosModules.sops
     ./modules/vm.nix
     ./modules/nvf.nix
@@ -133,10 +132,6 @@
   ];
 
   services = {
-    fprintd.enable = true;
-    fprintd.tod.enable = true;
-    fprintd.tod.driver = pkgs.libfprint-2-tod1-vfs0090;
-
     desktopManager.gnome.enable = true;
     displayManager = {
       gdm.enable = true;
@@ -217,6 +212,10 @@
 
   programs = {
 
+    direnv = {
+      enable = true;
+    };
+
     amnezia-vpn.enable = true;
 
     foot = {
@@ -226,7 +225,7 @@
 
         main = {
           term = "xterm-256color";
-          font = "monospace:size=9";
+          font = "monospace:size=8";
           dpi-aware = "yes";
         };
 
