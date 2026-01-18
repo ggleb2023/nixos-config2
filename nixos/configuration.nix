@@ -78,6 +78,10 @@
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+
   services.pcscd.enable = true;
 
   services.xserver.enable = true;
@@ -332,22 +336,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  networking.nameservers = [
-    "1.1.1.1#one.one.one.one"
-    "1.0.0.1#one.one.one.one"
-  ];
-
-  services.resolved = {
-    enable = true;
-    dnssec = "true";
-    domains = [ "~." ];
-    fallbackDns = [
-      "1.1.1.1#one.one.one.one"
-      "1.0.0.1#one.one.one.one"
-    ];
-    dnsovertls = "true";
-  };
 
   # Set your time zone.
   time.timeZone = "Asia/Pyongyang";
