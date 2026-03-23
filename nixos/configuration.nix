@@ -192,9 +192,9 @@
       };
     };
 
-    tailscale = {
-      enable = true;
-    };
+    # tailscale = {
+    #   enable = true;
+    # };
 
     # openssh.enable = true;
 
@@ -381,6 +381,7 @@
   };
 
   users.extraUsers.gleb.extraGroups = [ "audio" ];
+  time.hardwareClockInLocalTime = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
