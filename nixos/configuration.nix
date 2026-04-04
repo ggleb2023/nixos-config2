@@ -13,23 +13,46 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.sops-nix.nixosModules.sops
-    ./modules/vm.nix
+    #./modules/vm.nix
     ./modules/nvf.nix
   ];
 
   nixpkgs = {
     # You can add overlays here
-    overlays = [
-      #inputs.niri.overlays.niri
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
+    # overlays = [
+    #   (final: prev: {
+    #     amnezia-vpn = prev.amnezia-vpn.overrideAttrs (old: {
+    #       version = "4.8.14.5";
+    #       src = prev.fetchFromGitHub {
+    #         owner = "amnezia-vpn";
+    #         repo = "amnezia-client";
+    #         rev = "477afb9d852a84d324e80cf4fa7c8c8a38d7f3ac";
+    #         hash = "sha256-8wTo3etHNM44Z566LhWu8S6zaFzhDyrJic5dLBua6A4=";
+    #       };
+    #       allowSubstitutes = false;
+    #     });
+    #   })
+    # (
+    #   final: prev:
+    #   let;
+    #     stable = import inputs.nixpkgs-stable {
+    #       system = final.system;
+    #       config.allowUnfree = true;
+    #     };
+    #   in
+    #   {
+    #     amnezia-vpn = stable.amnezia-vpn;
+    #   }
+    # )
+    # #inputs.niri.overlays.niri
+    # If you want to use overlays exported from other flakes:
+    # neovim-nightly-overlay.overlays.default
+    # Or define it inline, for example:
+    # (final: prev: {
+    #   hi = final.hello.overrideAttrs (oldAttrs: {
+    #     patches = [ ./change-hello-to-hi.patch ];
+    #   });
+    # })
     # Configure your nixpkgs instance
     config.allowUnfree = true;
   };
@@ -75,6 +98,11 @@
     };
   };
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
@@ -91,14 +119,17 @@
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   hardware.graphics.enable32Bit = true; # For 32 bit applications
-  hardware.graphics.extraPackages = with pkgs; [
-    amdvlk
-  ];
-  # For 32 bit applications
-  hardware.graphics.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
+  hardware.graphics.enable = true;
+  # hardware.graphics.extraPackages = with pkgs; [
+  #   amdvlk
+  # ];
+  # # For 32 bit applications
+  # hardware.graphics.extraPackages32 = with pkgs; [
+  #   driversi686Linux.amdvlk
+  # ];
   hardware.opengl.enable = true;
 
   services.flatpak.enable = true;
@@ -213,6 +244,21 @@
     #  gvfs.enable = true;
     #   printing.enable = true;
   };
+  services.zapret.enable = true;
+  services.zapret.whitelist = [
+    "youtube.com"
+    "googlevideo.com"
+    "ytimg.com"
+    "youtu.be"
+    "discord.com"
+    "discord-attachmets-uploads-prd.storage.googleapis.com"
+    "googleapis.com"
+  ];
+  services.zapret.params = [
+    "--dpi-desync=fake,disorder2"
+    "--dpi-desync-ttl=1"
+    "--dpi-desync-autottl=2"
+  ];
 
   programs = {
 
@@ -251,10 +297,6 @@
     #  ];
     #};
 
-    clash-verge = {
-      enable = true;
-    };
-
     # appimage.enable = true;
     # appimage.binfmt = true;
     #programs.appimage.package = pkgs.appimage-run.override { extraPkgs = pkgs: [
@@ -278,6 +320,7 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
+    lact
     gnomeExtensions.appindicator
     kdePackages.sddm-kcm
     kdePackages.kleopatra
@@ -286,7 +329,7 @@
     wayland-utils
     osu-lazer-bin
     wl-clipboard
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     #(ffmpeg-full.override { withUnfree = true; })
     prismlauncher
     telegram-desktop
@@ -302,7 +345,7 @@
     qdirstat
     gimp
     krita
-    floorp
+    floorp-bin
     gcc
     mars-mips
     age
