@@ -423,6 +423,7 @@
       "networkmanager"
       "wheel"
     ];
+    shell = pkgs.fish;
   };
 
   users.extraUsers.gleb.extraGroups = [ "audio" ];
