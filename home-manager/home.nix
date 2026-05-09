@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     #../nixos/modules/niri.nix
@@ -67,6 +68,8 @@
   };
 
   programs = {
+    fish.enable = true;
+
     home-manager.enable = true;
 
     ghostty = {
@@ -100,8 +103,10 @@
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [vim-airline];
-      settings = {ignorecase = true;};
+      plugins = with pkgs.vimPlugins; [ vim-airline ];
+      settings = {
+        ignorecase = true;
+      };
       extraConfig = ''
               set mouse=a
         set shiftwidth=4 smarttab
