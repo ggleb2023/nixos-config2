@@ -19,40 +19,19 @@
 
   nixpkgs = {
     # You can add overlays here
-    # overlays = [
-    #   (final: prev: {
-    #     amnezia-vpn = prev.amnezia-vpn.overrideAttrs (old: {
-    #       version = "4.8.14.5";
-    #       src = prev.fetchFromGitHub {
-    #         owner = "amnezia-vpn";
-    #         repo = "amnezia-client";
-    #         rev = "477afb9d852a84d324e80cf4fa7c8c8a38d7f3ac";
-    #         hash = "sha256-8wTo3etHNM44Z566LhWu8S6zaFzhDyrJic5dLBua6A4=";
-    #       };
-    #       allowSubstitutes = false;
-    #     });
-    #   })
-    # (
-    #   final: prev:
-    #   let;
-    #     stable = import inputs.nixpkgs-stable {
-    #       system = final.system;
-    #       config.allowUnfree = true;
-    #     };
-    #   in
-    #   {
-    #     amnezia-vpn = stable.amnezia-vpn;
-    #   }
-    # )
-    # #inputs.niri.overlays.niri
-    # If you want to use overlays exported from other flakes:
-    # neovim-nightly-overlay.overlays.default
-    # Or define it inline, for example:
-    # (final: prev: {
-    #   hi = final.hello.overrideAttrs (oldAttrs: {
-    #     patches = [ ./change-hello-to-hi.patch ];
-    #   });
-    # })
+    overlays = [
+      inputs.helium.overlays.default
+      #
+      # #inputs.niri.overlays.niri
+      # If you want to use overlays exported from other flakes:
+      # neovim-nightly-overlay.overlays.default
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   hi = final.hello.overrideAttrs (oldAttrs: {
+      #     patches = [ ./change-hello-to-hi.patch ];
+      #   });
+      # })
+    ];
     # Configure your nixpkgs instance
     config.allowUnfree = true;
   };
@@ -80,6 +59,13 @@
 
       binaryCaches = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
     };
+
+  virtualisation = {
+    docker = {
+      enable = true;
+
+    };
+  };
 
   musnix = {
     enable = false;
@@ -261,6 +247,11 @@
   ];
 
   programs = {
+    throne = {
+      enable = true;
+      tunMode.enable = true;
+
+    };
 
     fish.enable = true;
 
@@ -322,6 +313,7 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
+    helium
     lact
     gnomeExtensions.appindicator
     kdePackages.sddm-kcm
@@ -381,6 +373,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.proxy = {
+    default = "127.0.0.1:2080";
+    noProxy = "127.0.0.1,localhost,internal.domain";
+
+  };
 
   # Set your time zone.
   time.timeZone = "Asia/Pyongyang";

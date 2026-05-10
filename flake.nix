@@ -15,6 +15,10 @@
   };
 
   inputs = {
+    helium = {
+      url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #zapret-discord-youtube
     zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
