@@ -313,6 +313,9 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
+    gnome-solanum
+    gradia
+    hieroglyphic
     helium
     lact
     gnomeExtensions.appindicator
