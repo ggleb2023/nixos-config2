@@ -1,4 +1,4 @@
-# for help type nixos-help :3
+# fo help type nixos-help :3
 {
   inputs,
   lib,
@@ -313,12 +313,15 @@
     font-awesome
   ];
   environment.systemPackages = with pkgs; [
+    lunatask
     gnome-solanum
     gradia
     hieroglyphic
     helium
     lact
     gnomeExtensions.appindicator
+    gnomeExtensions.just-perfection
+    gnomeExtensions.blur-my-shell
     kdePackages.sddm-kcm
     kdePackages.kleopatra
     pinentry-curses
