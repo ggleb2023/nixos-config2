@@ -312,55 +312,58 @@
   fonts.packages = with pkgs; [
     font-awesome
   ];
-  environment.systemPackages = with pkgs; [
-    lunatask
-    gnome-solanum
-    gradia
-    hieroglyphic
-    helium
-    lact
-    gnomeExtensions.appindicator
-    gnomeExtensions.just-perfection
-    gnomeExtensions.blur-my-shell
-    kdePackages.sddm-kcm
-    kdePackages.kleopatra
-    pinentry-curses
-    #jetbrains.idea-community
-    wayland-utils
-    osu-lazer-bin
-    wl-clipboard
-    onlyoffice-desktopeditors
-    #(ffmpeg-full.override { withUnfree = true; })
-    prismlauncher
-    telegram-desktop
-    fastfetch
-    btop
-    usbutils
-    hyfetch
-    pciutils
-    unrar
-    p7zip
-    unp
-    qbittorrent
-    qdirstat
-    gimp
-    krita
-    floorp-bin
-    gcc
-    mars-mips
-    age
-    inputs.agenix.packages."${system}".default
-    #(retroarch.withCores (
-    #  cores: with cores; [
-    #    snes9x
-    #    ppsspp
-    #  ]
-    #))
+  environment.systemPackages =
+    with pkgs;
+    [
+      lunatask
+      gnome-solanum
+      gradia
+      hieroglyphic
+      helium
+      lact
+      gnomeExtensions.appindicator
+      gnomeExtensions.just-perfection
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.hide-top-bar
+      kdePackages.sddm-kcm
+      kdePackages.kleopatra
+      pinentry-curses
+      #jetbrains.idea-community
+      wayland-utils
+      osu-lazer-bin
+      wl-clipboard
+      onlyoffice-desktopeditors
+      #(ffmpeg-full.override { withUnfree = true; })
+      prismlauncher
+      telegram-desktop
+      fastfetch
+      btop
+      usbutils
+      hyfetch
+      pciutils
+      unrar
+      p7zip
+      unp
+      qbittorrent
+      qdirstat
+      gimp
+      floorp-bin
+      gcc
+      mars-mips
+      age
+      inputs.agenix.packages."${system}".default
+      #(retroarch.withCores (
+      #  cores: with cores; [
+      #    snes9x
+      #    ppsspp
+      #  ]
+      #))
 
-    #(vscode-with-extensions.override {
-    #  vscode = vscodium;
-    #})
-  ];
+      #(vscode-with-extensions.override {
+      #  vscode = vscodium;
+      #})
+    ]
+    ++ [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.krita ];
 
   hardware = {
     bluetooth = {

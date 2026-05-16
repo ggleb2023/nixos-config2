@@ -15,6 +15,7 @@
   };
 
   inputs = {
+
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,6 +77,8 @@
       #niri,
       nvf,
       zapret-discord-youtube,
+      kritaPinned,
+      helium,
       ...
     }
 
