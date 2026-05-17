@@ -325,6 +325,7 @@
       gnomeExtensions.just-perfection
       gnomeExtensions.blur-my-shell
       gnomeExtensions.hide-top-bar
+      gnomeExtensions.caffeine
       kdePackages.sddm-kcm
       kdePackages.kleopatra
       pinentry-curses
