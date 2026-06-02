@@ -83,6 +83,7 @@
       useOSProber = true;
     };
   };
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   services.syncthing = {
     enable = true;
@@ -280,15 +281,15 @@
     };
 
     #niri.enable = false;
-    #obs-studio = {
-    #  enable = true;
-    #  plugins = with pkgs.obs-studio-plugins; [
-    #    wlrobs
-    #    obs-pipewire-audio-capture
-    #    obs-gstreamer
-    #    obs-vkcapture
-    #  ];
-    #};
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+        obs-gstreamer
+        obs-vkcapture
+      ];
+    };
 
     # appimage.enable = true;
     # appimage.binfmt = true;
@@ -315,6 +316,7 @@
   environment.systemPackages =
     with pkgs;
     [
+      tuxpaint
       lunatask
       gnome-solanum
       gradia
