@@ -221,33 +221,34 @@
     #   websocket.enable = true;
     # };
 
-    sunshine = {
-      enable = true;
-      autoStart = true;
-      capSysAdmin = true;
-      openFirewall = true;
-    };
+    # sunshine = {
+    #   enable = true;
+    #   autoStart = true;
+    #   capSysAdmin = true;
+    #   openFirewall = true;
+    # };
 
     #  gvfs.enable = true;
     #   printing.enable = true;
   };
-  services.zapret.enable = true;
-  services.zapret.whitelist = [
-    "youtube.com"
-    "googlevideo.com"
-    "ytimg.com"
-    "youtu.be"
-    "discord.com"
-    "discord-attachmets-uploads-prd.storage.googleapis.com"
-    "googleapis.com"
-  ];
-  services.zapret.params = [
-    "--dpi-desync=fake,disorder2"
-    "--dpi-desync-ttl=1"
-    "--dpi-desync-autottl=2"
-  ];
-
+  # services.zapret.enable = true;
+  # services.zapret.whitelist = [
+  #   "youtube.com"
+  #   "googlevideo.com"
+  #   "ytimg.com"
+  #   "youtu.be"
+  #   "discord.com"
+  #   "discord-attachmets-uploads-prd.storage.googleapis.com"
+  #   "googleapis.com"
+  # ];
+  # services.zapret.params = [
+  #   "--dpi-desync=fake,disorder2"
+  #   "--dpi-desync-ttl=1"
+  #   "--dpi-desync-autottl=2"
+  # ];
+  #
   programs = {
+
     throne = {
       enable = true;
       tunMode.enable = true;
@@ -260,7 +261,7 @@
       enable = true;
     };
 
-    amnezia-vpn.enable = true;
+    # amnezia-vpn.enable = true;
 
     foot = {
       enable = true;
@@ -316,6 +317,7 @@
   environment.systemPackages =
     with pkgs;
     [
+      beeref
       tuxpaint
       lunatask
       gnome-solanum
@@ -371,7 +373,7 @@
   hardware = {
     bluetooth = {
       enable = true;
-      powerOnBoot = true;
+      # powerOnBoot = true;
     };
     opentabletdriver.enable = true;
   };
