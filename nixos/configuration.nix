@@ -263,34 +263,16 @@
 
     # amnezia-vpn.enable = true;
 
-    foot = {
-      enable = true;
-      enableBashIntegration = true;
-      settings = {
-
-        main = {
-          term = "xterm-256color";
-          font = "monospace:size=8";
-          dpi-aware = "yes";
-        };
-
-        mouse = {
-          hide-when-typing = "yes";
-        };
-      };
-
-    };
-
     #niri.enable = false;
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-pipewire-audio-capture
-        obs-gstreamer
-        obs-vkcapture
-      ];
-    };
+    #obs-studio = {
+    #  enable = true;
+    #  plugins = with pkgs.obs-studio-plugins; [
+    #    wlrobs
+    #    obs-pipewire-audio-capture
+    #    obs-gstreamer
+    #    obs-vkcapture
+    #  ];
+    #};
 
     # appimage.enable = true;
     # appimage.binfmt = true;
@@ -311,18 +293,14 @@
     # enableSSHSupport = true;
     # };
   };
-  fonts.packages = with pkgs; [
+ fonts.packages = with pkgs; [
     font-awesome
+    iosevka
   ];
   environment.systemPackages =
     with pkgs;
     [
-      beeref
-      tuxpaint
-      lunatask
       gnome-solanum
-      gradia
-      hieroglyphic
       helium
       lact
       gnomeExtensions.appindicator
@@ -335,9 +313,9 @@
       pinentry-curses
       #jetbrains.idea-community
       wayland-utils
-      osu-lazer-bin
+      # osu-lazer-bin
       wl-clipboard
-      onlyoffice-desktopeditors
+      #onlyoffice-desktopeditors
       #(ffmpeg-full.override { withUnfree = true; })
       prismlauncher
       telegram-desktop
