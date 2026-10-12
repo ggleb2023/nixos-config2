@@ -118,7 +118,7 @@
   #   driversi686Linux.amdvlk
   # ];
   hardware.opengl.enable = true;
-
+  hardware.enableAllFirmware = true;
   services.flatpak.enable = true;
 
   swapDevices = [
@@ -293,9 +293,45 @@
     # enableSSHSupport = true;
     # };
   };
- fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     font-awesome
     iosevka
+    (iosevka.override {
+    set = "custom";
+    privateBuildPlan = ''
+      [buildPlans.Iosevkacustom]
+      family = "Iosevka Custom"
+      spacing = "term"
+      serifs = "slab"
+      noCvSs = true
+      exportGlyphNames = false
+
+      [buildPlans.Iosevkacustom.widths.Condensed]
+      shape = 456
+      menu = 3
+      css = "condensed"
+
+      [buildPlans.Iosevkacustom.widths.Normal]
+      shape = 600
+      menu = 5
+      css = "normal"
+
+      [buildPlans.Iosevkacustom.widths.SemiCondensed]
+      shape = 548
+      menu = 4
+      css = "semi-condensed"
+
+      [buildPlans.Iosevkacustom.widths.SemiExtended]
+      shape = 658
+      menu = 6
+      css = "semi-expanded"
+
+      [buildPlans.Iosevkacustom.widths.Extended]
+      shape = 720
+      menu = 7
+      css = "expanded"
+    '';
+  })
   ];
   environment.systemPackages =
     with pkgs;
@@ -401,8 +437,15 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     # media-session.enable = true;
+    wireplumber.enable = true;
   };
   hardware.pulseaudio.enable = false;
+
+    services.pipewire.wireplumber.extraConfig."11-bluetooth-policy" = {
+    "wireplumber.settings" = {
+      "bluetooth.autoswitch-to-headset-profile" = false;
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.gleb = {

@@ -67,7 +67,7 @@
     };
   };
 
-  xdg.configFile."emacs".source = ../emacs;
+xdg.configFile."emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config2/emacs";
 
   programs = {
   
@@ -97,51 +97,21 @@
 
     home-manager.enable = true;
 
-    foot = {
-    	 enable = true;
-	 settings = {
-	 	main = {
-		     term = "foot";
-		     font = "iosevka:size=11";
-		     dpi-aware = "yes";
-		     initial-color-theme = "light";
-		     };
-		mouse.hide-when-typing = "yes";
-		csd.size = 0;
-	colors-light = {
-	cursor="eeeeee 444444";
-	background="eeeeee";
-	foreground="444444";
-	regular0="eeeeee";  # black
-	regular1="af0000";  # red
-	regular2="008700";  # green
-	regular3="5f8700";  # yellow
-	regular4="0087af";  # blue
-	regular5="878787";  # magenta
-	regular6="005f87";  # cyan
-	regular7="764e37";  # white
-	bright0="bcbcbc";   # bright black
-	bright1="d70000";   # bright red
-	bright2="d70087";   # bright green
-	bright3="8700af";   # bright yellow
-	bright4="d75f00";   # bright blue
-	bright5="d75f00";   # bright magenta
-	bright6="4c7a5d";   # bright cyan
-	bright7="005faf";   # bright white
-	selection-foreground="eeeeee";
-	selection-background="0087af";
-	};
-
-
+alacritty = {
+  enable = true;
+  theme = "solarized_light";
+  settings = {
+    window.opacity = 1.0;
+    font.size = 16.0;
+    window.decorations = "None";
+    font ={
+         normal = { family = "Iosevka"; style = "Regular";};
+         bold = { family = "Iosevka"; style = "Bold";};
+         italic = { family = "Iosevka"; style = "Light Oblique";};
+         bold_italic = { family = "Iosevka"; style = "Bold Oblique";};
 };
-
-    };
-
-    ghostty = {
-      enable = true;
-      enableBashIntegration = true;
-      installVimSyntax = true;
-    };
+};
+};
 
     git = {
       enable = true;
