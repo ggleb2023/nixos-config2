@@ -1,13 +1,10 @@
-# fo help type nixos-help :3
+# for help type nixos-help :3
+{ inputs, lib, config, pkgs, ...  }:
+let
+   localProxy = "127.0.0.1:2080";
+in
 {
-  inputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
-  home-manager.backupFileExtension = "backup";
+home-manager.backupFileExtension = "backup";
 
   imports = [
     # Include the results of the hardware scan.
@@ -44,26 +41,47 @@
     {
       settings = {
         # Enable flakes and new 'nix' command
-        experimental-features = "nix-command flakes";
+        experimental-features = ["nix-command flakes"];
         # Opinionated: disable global registry
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         nix-path = config.nix.nixPath;
-      };
+
+#     fallback = true;
+#     connect-timeout = 2;
+#     stalled-download-timeout = 4;
+#     download-attempts = 2;
+#     http-connections = 32;
+#     max-substitution-jobs = 32;
+#     builders-use-substitutes = true;
+     auto-optimise-store = true;
+     
+     substituters = lib.mkForce [ "http://localhost:8080" ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    #  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="
+    ];
+
+      trusted-substituters = [ "http://localhost:8080" ];
+
+
       # Opinionated: disable channels
-      channel.enable = true;
+     
 
       # Opinionated: make flake registry and nix path match flake inputs
+
+};
+ channel.enable = true;
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
-      binaryCaches = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
-    };
+};
 
   virtualisation = {
     docker = {
       enable = true;
-
+      enableOnBoot = false;
     };
   };
 
@@ -84,6 +102,44 @@
     };
   };
   boot.kernel.sysctl."kernel.sysrq" = 1;
+
+  services.ncro = {
+    enable = true;
+    settings = {
+      upstreams = [
+        {url = "https://cache.nixos.org";
+          priority = 90;
+          public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+        {url = "https://nix-community.cachix.org";
+          priority = 89;
+          public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";}
+        {url = "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store";
+         priority = 10;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+        {url = "https://mirrors.ustc.edu.cn/nix-channels/store";
+         priority = 20;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+        {url = "https://mirrors.bfsu.edu.cn/nix-channels/store";
+         priority = 30;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+        {url = "https://mirror.sjtu.edu.cn/nix-channels/store";
+         priority = 40;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+         {url = "https://mirror.nyist.edu.cn/nix-channels/store";
+         priority = 50;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+         {url = "https://mirror.lzu.edu.cn/nix-channels/store";
+         priority = 1;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+         {url = "https://mirror.cqupt.edu.cn/nix-channels/store";
+         priority = 70;
+         public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";}
+         {url = "https://winapps.cachix.org";
+         priority = 80;
+         public_key = "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g=";}
+      ];
+    };
+  };
 
   services.syncthing = {
     enable = true;
@@ -167,10 +223,6 @@
       pkgs.gnome-settings-daemon
     ];
 
-    #    udev.extraRules = ''
-    #      PROGRAM="${pkgs.procps}/bin/pgrep -l "Hollow Knight S"", KERNEL=="js[0-9]*", ATTRS{idVendor}=="3016", ATTRS{idProduct}=="2dc8", MODE="0000"
-    #    '';
-
     #thermald.enable = true;
 
     #tlp = {
@@ -252,7 +304,6 @@
     throne = {
       enable = true;
       tunMode.enable = true;
-
     };
 
     fish.enable = true;
@@ -296,46 +347,14 @@
   fonts.packages = with pkgs; [
     font-awesome
     iosevka
-    (iosevka.override {
-    set = "custom";
-    privateBuildPlan = ''
-      [buildPlans.Iosevkacustom]
-      family = "Iosevka Custom"
-      spacing = "term"
-      serifs = "slab"
-      noCvSs = true
-      exportGlyphNames = false
-
-      [buildPlans.Iosevkacustom.widths.Condensed]
-      shape = 456
-      menu = 3
-      css = "condensed"
-
-      [buildPlans.Iosevkacustom.widths.Normal]
-      shape = 600
-      menu = 5
-      css = "normal"
-
-      [buildPlans.Iosevkacustom.widths.SemiCondensed]
-      shape = 548
-      menu = 4
-      css = "semi-condensed"
-
-      [buildPlans.Iosevkacustom.widths.SemiExtended]
-      shape = 658
-      menu = 6
-      css = "semi-expanded"
-
-      [buildPlans.Iosevkacustom.widths.Extended]
-      shape = 720
-      menu = 7
-      css = "expanded"
-    '';
-  })
+    
   ];
   environment.systemPackages =
     with pkgs;
     [
+      blender
+      inputs.winapps.packages."${pkgs.system}".winapps
+      inputs.winapps.packages."${pkgs.system}".winapps-launcher
       gnome-solanum
       helium
       lact
@@ -351,7 +370,7 @@
       wayland-utils
       # osu-lazer-bin
       wl-clipboard
-      #onlyoffice-desktopeditors
+      onlyoffice-desktopeditors
       #(ffmpeg-full.override { withUnfree = true; })
       prismlauncher
       telegram-desktop
@@ -384,6 +403,11 @@
     ]
     ++ [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.krita ];
 
+services.emacs = {
+  enable = true;
+  defaultEditor = true;
+};  
+
   hardware = {
     bluetooth = {
       enable = true;
@@ -399,14 +423,24 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
+    # Enable networking
   networking.networkmanager.enable = true;
   networking.proxy = {
-    default = "127.0.0.1:2080";
+    default = "${localProxy}";
     noProxy = "127.0.0.1,localhost,internal.domain";
-
   };
+  environment.variables = {
+    http_proxy = "${localProxy}";
+    https_proxy = "${localProxy}";
+    #NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
+};
 
+ #for systemd other services
+ # systemd.services.<something>.environment = {
+ #  http_proxy = "${localProxy}";
+ #  https_proxy = "${localProxy}";
+ # };
+ # 
   # Set your time zone.
   time.timeZone = "Asia/Pyongyang";
 

@@ -34,7 +34,6 @@
           java.enable = true;
           css.enable = true;
           html.enable = true;
-          ts.enable = true;
           python.enable = true;
         };
         spellcheck = {

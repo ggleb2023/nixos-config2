@@ -1,20 +1,17 @@
 {
   description = "wawa";
 
-  nixConfig = {
-
-    substituters = [
-      "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-      "https://cache.nixos.org"
-      # "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
-  };
-
   inputs = {
+
+    ncro = {
+      url = "github:manic-systems/ncro";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
@@ -78,6 +75,8 @@
       nvf,
       zapret-discord-youtube,
       helium,
+      winapps,
+      ncro,
       ...
     }
 
@@ -96,6 +95,7 @@
           };
           # > Our main nixos configuration file <
           modules = [
+            ncro.nixosModules.default
             ./nixos/configuration.nix
             sops-nix.nixosModules.sops
             agenix.nixosModules.default

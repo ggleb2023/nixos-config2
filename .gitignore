@@ -20,4 +20,5 @@ emacs/*~
 emacs/#*#
 emacs/*.eln
 emacs/projects
+emacs/auto-save-list
 **/eln-cache/

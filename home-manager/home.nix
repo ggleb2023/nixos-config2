@@ -70,11 +70,6 @@
 xdg.configFile."emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config2/emacs";
 
   programs = {
-  
-  emacs = {
-    enable = true;
-    package = pkgs.emacs-nox;
-  };
 
     fish = {
       enable = true;
@@ -115,13 +110,13 @@ alacritty = {
 
     git = {
       enable = true;
-      userName = "ggleb2023";
-      userEmail = "151332451+ggleb2023@users.noreply.github.com";
+      settings.user.name = "ggleb2023";
+      settings.user.email = "151332451+ggleb2023@users.noreply.github.com";
       signing = {
         key = "~/.ssh/id_ed25519.pub";
         signByDefault = true;
       };
-      extraConfig = {
+      settings = {
         gpg.format = "ssh";
         commit.gpgsign = true;
         tag.gpgsign = true;
