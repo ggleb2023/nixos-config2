@@ -377,7 +377,6 @@ home-manager.backupFileExtension = "backup";
       fastfetch
       btop
       usbutils
-      hyfetch
       pciutils
       unrar
       p7zip

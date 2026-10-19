@@ -7,6 +7,7 @@ result-*
 *.swo
 .DS_Store
 Thumbs.db
+nixos/hardware-configuration.nix
 emacs/straight/
 emacs/elpa/
 emacs/saves/
