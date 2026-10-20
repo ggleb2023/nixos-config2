@@ -347,11 +347,11 @@ home-manager.backupFileExtension = "backup";
   fonts.packages = with pkgs; [
     font-awesome
     iosevka
-    
   ];
   environment.systemPackages =
     with pkgs;
     [
+      distrobox
       blender
       inputs.winapps.packages."${pkgs.system}".winapps
       inputs.winapps.packages."${pkgs.system}".winapps-launcher
