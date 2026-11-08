@@ -9,7 +9,12 @@
 (when (fboundp 'tool-bar-mode)   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(global-set-key (kbd "<f5>") (lambda () (interactive) (load user-init-file)))
+(global-set-key
+ (kbd "<f5>")
+ (lambda ()
+   (interactive)
+   (load (expand-file-name "config-local.el" doom-data-dir)
+         nil 'nomessage)))
 
 ;;font
 
