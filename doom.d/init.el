@@ -28,7 +28,7 @@
 
        :lang
        emacs-lisp
-       (:if (featurep 'unstraightened) (nix +lsp))
+       (nix +lsp)
 
        :tools
        (lsp +eglot)

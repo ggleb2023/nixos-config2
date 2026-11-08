@@ -41,8 +41,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Disko
-    #disko.url = "github:nix-community/disko/latest";
-    #disko.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
 
     # Cachix
     cachix.url = "github:cachix/cachix";
@@ -82,6 +82,7 @@
       helium,
       winapps,
       ncro,
+      disko,
       ...
     }
 

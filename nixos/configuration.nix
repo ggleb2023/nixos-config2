@@ -12,6 +12,8 @@ home-manager.backupFileExtension = "backup";
     inputs.sops-nix.nixosModules.sops
     #./modules/vm.nix
     ./modules/nvf.nix
+    inputs.disko.nixosModules.disko
+    ./disko.nix              
   ];
 
   nixpkgs = {
