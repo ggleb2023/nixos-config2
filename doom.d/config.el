@@ -15,8 +15,8 @@
 
 (defun font-exists-p (font) (if (null (x-list-fonts font)) nil t))
 (when (window-system)
-  (cond ((font-exists-p "Iosevka") (set-frame-font "Iosevka:size=40" t nil))
-    ((font-exists-p "Iosevka") (set-frame-font "Iosevka:size=40" nil t))))
+  (cond ((font-exists-p "Iosevka") (set-frame-font "Iosevka:size=20" t nil))
+    ((font-exists-p "Iosevka") (set-frame-font "Iosevka:size=20" nil t))))
 
 (global-display-line-numbers-mode t)
 (column-number-mode t)
@@ -40,3 +40,8 @@
             (call-process "xclip" nil nil nil "-selection" "clipboard" text))))
   (setq interprogram-paste-function
         (lambda ()          (shell-command-to-string "xclip -o -selection clipboard"))))
+
+(let ((local-config
+       (expand-file-name "config-local.el" doom-data-dir)))
+  (when (file-exists-p local-config)
+    (load local-config nil 'nomessage)))

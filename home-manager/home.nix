@@ -10,6 +10,7 @@
 {
   # You can import other home-manager modules here
   imports = [
+    inputs.nix-doom-emacs-unstraightened.homeModule
     #../nixos/modules/niri.nix
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
@@ -70,6 +71,11 @@
 xdg.configFile."emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config2/emacs";
 
   programs = {
+
+    doom-emacs = {
+      enable = true;
+  doomLocalDir = config.home.homeDirectory + "/.local/share/nix-doom";
+    };
 
     fish = {
       enable = true;
